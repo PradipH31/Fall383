@@ -22,7 +22,8 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFFFFF",
+        "package": "com.selu383-fa21-po5-go3.FoodToGo"
       }
     },
     "web": {
