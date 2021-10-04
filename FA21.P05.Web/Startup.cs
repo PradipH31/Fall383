@@ -4,6 +4,7 @@ using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.HostedServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +52,11 @@ namespace FA21.P05.Web
                 };
             });
 
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "clientapp/build";
+            });
+
             services.AddHostedService<MigrateDatabaseHostedService>();
             services.AddHostedService<SeedDataHostedService>();
         }
@@ -66,6 +72,8 @@ namespace FA21.P05.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
             app.UseRouting();
 
@@ -75,6 +83,16 @@ namespace FA21.P05.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "clientapp";
+
+                if (env.IsDevelopment())
+                {
+                    //spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+                }
             });
         }
     }
