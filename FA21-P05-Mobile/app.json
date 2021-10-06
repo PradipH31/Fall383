@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FA21-P05-Mobile",
-    "slug": "FA21-P05-Mobile",
+    "name": "FA21-P05-G03-Mobile",
+    "slug": "FA21-P05-G03-Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.SELU.FoodToGo"
+      "package": "com.cmps383-fa21-po5-g04.FoodToGo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
