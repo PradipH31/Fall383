@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.cmps383-fa21-po5-g04.FoodToGo"
+      "package": "com.SELU.FoodToGo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
