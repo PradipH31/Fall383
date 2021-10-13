@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+// import { getMenuItems } from "./components/actions/home";
+import Header from "./components/header/Header";
+import NavBar from "./components/navbar/NavBar";
 
 function App() {
+  // const [items, setItems] = useState([]);
+  // const [error, setError] = useState();
+
+  // const getItems = () => {
+  //   return getMenuItems()
+  //     .then((data) => {
+  //       setItems(data);
+  //       console.log(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // useEffect(() => {
+  //   getItems();
+  // }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-                  {/*Edit <code>src/App.js</code> and save to reload.*/}
-                  Hello, from Group 3
-        </p>
-        {/*<a*/}
-        {/*  className="App-link"*/}
-        {/*  href="https://reactjs.org"*/}
-        {/*  target="_blank"*/}
-        {/*  rel="noopener noreferrer"*/}
-        {/*>*/}
-        {/*  Learn React*/}
-        {/*</a>*/}
-      </header>
+      <>
+        <NavBar />
+        <Header />
+      </>
     </div>
   );
 }
