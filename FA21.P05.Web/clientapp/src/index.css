@@ -1,13 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap");
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 0px;
+  padding: 0px;
+  background-color: #ffffff;
+  font-family: "Bebas Neue", "Lato", sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+button {
+  outline: none;
+  border: none;
+}
+input {
+  outline: none;
+  border: none;
+}
+.logo img {
+  width: 32px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#main {
+  width: 100%;
+  height: 768px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("./assets//images/banner.png");
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: transparent;
+  transition: 0.6s ease-in-out;
+}
+nav.active {
+  box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.157);
+  background-color: #ffffff;
+}
+nav ul {
+  display: flex;
+}
+nav ul li a {
+  font-family: "Bebas Neue";
+  height: 40px;
+  line-height: 43px;
+  margin: 3px;
+  padding: 0px 22px;
+  display: flex;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #0f0c0a;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  transition: 0.2s ease-in-out;
+}
+nav ul li a:hover {
+  background-color: #e03f0d;
+  color: #ffffff;
+  box-shadow: 5px 10px 30px rgba(243, 40, 5, 0.336);
+  transition: all ease 0.2s;
+}
+nav .menu-btn,
+.menu-icon {
+  display: none;
+}
+
+.header-heading {
+  font-family: "Montserrat";
+  width: 900px;
+  position: absolute;
+  left: 25%;
+  top: 55%;
+  text-align: left;
+  transform: translate(-25%, -55%);
+}
+.header-heading span {
+  font-family: "Alfa Slab One";
+  color: #e03f0d;
+  border-bottom: 2px solid #d42e059c;
+}
+.header-heading .details {
+  font-size: 23px;
+  color: #000000;
+}
+.header-heading h3 {
+  font-family: "Bebas Neue";
+  font-size: 1.6rem;
+  margin: 0px;
+  letter-spacing: 2px;
+  color: #291a0f;
+}
+.header-heading h1 {
+  font-family: "Alfa Slab One";
+  font-size: 4rem;
+  margin: 0px;
+  letter-spacing: 2px;
+  color: #3d2514;
+}
+.header-btns {
+  display: flex;
+  margin-top: 40px;
+}
+.header-btn {
+  width: 160px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  font-family: "Lato";
+  background-color: #e03f0d;
+  box-shadow: 5px 10px 30px rgba(182, 4, 4, 0.336);
+  border-radius: 5px;
+  color: #ffffff;
+}
+.header-btn:hover {
+  background-color: transparent;
+  transition: all ease 0.5s;
+  color: #38291e;
+  border: 2px solid #e03f0d;
+}
+
+@media (max-width: 1190px) {
+  #main {
+    background-size: 1150px !important;
+  }
+  .header-heading {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .header-heading h2 {
+    font-size: 1.5rem;
+  }
+  .header-heading h1 {
+    font-size: 3rem;
+  }
+  .header-heading .details {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 970px) {
+  #main {
+    height: 650px;
+  }
+  .header-heading {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .header-btn {
+    margin-left: 20%;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-heading {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .menu-icon {
+    display: block;
+  }
+  nav {
+    justify-content: space-between;
+    height: 65px;
+    padding: 0px 30px;
+  }
+  .logo img {
+    width: 32px;
+  }
+  .header-btns {
+    margin: 0;
+  }
+  .menu {
+    display: none;
+    position: absolute;
+    top: 65px;
+    left: 0px;
+    background-color: #ffffff;
+    border-bottom: 4px solid #ff1414;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+  .menu li {
+    width: 100%;
+  }
+  nav .menu li a {
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 25px;
+    border: 1px solid rgba(38, 38, 38, 0.03);
+  }
+  nav .menu-icon {
+    cursor: pointer;
+    float: right;
+    padding: 28px 20px;
+    position: relative;
+    user-select: none;
+  }
+  nav .menu-icon .nav-icon {
+    background-color: #3d2514;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background 0.2s ease-out;
+    width: 24px;
+  }
+  nav .menu-icon .nav-icon:before,
+  nav .menu-icon .nav-icon:after {
+    background: rgb(255, 255, 255);
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all ease-out 0.2s;
+    width: 100%;
+  }
+  nav .menu-icon .nav-icon:before {
+    top: 6px;
+    background-color: #3d2514;
+  }
+  nav .menu-icon .nav-icon:after {
+    top: -6px;
+    background-color: #3d2514;
+  }
+  nav .menu-btn:checked ~ .menu-icon .nav-icon {
+    background: transparent;
+  }
+  nav .menu-btn:checked ~ .menu-icon .nav-icon:before {
+    transform: rotate(-45deg);
+    top: 0;
+    background-color: #3d2514;
+  }
+  nav .menu-btn:checked ~ .menu-icon .nav-icon:after {
+    transform: rotate(45deg);
+    top: 0;
+    background-color: #3d2514;
+  }
+  nav .menu-btn {
+    display: none;
+  }
+  nav .menu-btn:checked ~ .menu {
+    display: block;
+  }
 }
