@@ -1,8 +1,12 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import { getMenuItems } from "./components/actions/home";
 import Header from "./components/header/Header";
 import NavBar from "./components/navbar/NavBar";
+import PageNotFound from "./components/404/PageNotFound";
+import Menu from "./components/menu/Menu";
+import Feature from "./components/features/Feature";
 
 function App() {
   // const [items, setItems] = useState([]);
@@ -22,12 +26,28 @@ function App() {
   // }, []);
 
   return (
-    <div className="App">
-      <>
-        <NavBar />
-        <Header />
-      </>
-    </div>
+    <Router>
+      <NavBar />
+      <Switch>
+        <Route path="/" exact>
+          <Header />
+          <hr className="center-star" data-content="★" />
+          <Feature />
+        </Route>
+        <Route path="/menu">
+          <Menu />
+        </Route>
+        {/* 
+              <Route path="/about" exact component={About} />
+              <Route path="/orders" exact component={Order} />
+              <Route path="/contact" exact component={Contact} />
+              */}
+
+        <Route path={"*"}>
+          <PageNotFound />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
