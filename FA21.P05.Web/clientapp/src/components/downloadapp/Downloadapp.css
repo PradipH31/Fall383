@@ -1,0 +1,26 @@
+/* section .app-section {
+    margin: 10rem 9%;
+    border-radius: 0.5rem;
+    background-color: rgb(235, 55, 0);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    padding: 22rem 0;
+  }
+  
+  section .app-section .app-image {
+    position: absolute;
+    left: 15%;
+  }
+  
+  section .app-section .app-image img {
+    width: 100%;
+  }
+  
+  section .app-section .app-content {
+    position: absolute;
+    right: 5%;
+    width: 45%;
+  }
+   */

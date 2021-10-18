@@ -268,6 +268,54 @@ h2 .center-star {
   background-color: #ffffff;
 }
 
+.app_section {
+  margin: 10rem 9%;
+  border-radius: 0.5rem;
+  background-color: rgb(235, 55, 0);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  position: relative;
+  padding: 14rem 0;
+}
+
+.app_section .app_image {
+  position: absolute;
+  left: 15%;
+  width: 275px;
+  height: 548.09px;
+}
+
+.app_section .app_image img {
+  width: 100%;
+}
+
+.app_section .app_content {
+  margin-top: -20px;
+  position: absolute;
+  right: 5%;
+  width: 45%;
+}
+
+.app_section .app_content h3 {
+  font-size: 4.2rem;
+  color: #ffffff;
+  margin-bottom: 4rem;
+}
+
+.app_section .app_content p {
+  margin-bottom: 2rem;
+  width: 65%;
+  color: #ffffff;
+  letter-spacing: 1.2px;
+  margin-top: -4rem;
+}
+
+.app_section .app_content .app_links img {
+  margin-right: 3rem;
+  margin-bottom: 2rem;
+}
+
 @media (max-width: 1190px) {
   #main {
     background-size: 1150px !important;
@@ -302,6 +350,10 @@ h2 .center-star {
   .a-b-img img {
     object-fit: contain;
   }
+
+  .app_section .app_image {
+    max-width: 20rem;
+  }
 }
 
 @media (max-width: 970px) {
@@ -321,6 +373,37 @@ h2 .center-star {
   #features {
     margin-bottom: 100px;
   }
+
+  .app_section {
+    grid-template-columns: 1fr;
+    padding: 20rem 0;
+    margin: 3rem 9%;
+  }
+  .app_section .app_content {
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .app_section .app_content h3 {
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .app_section .app_content p {
+    width: 70%;
+  }
+
+  .app_section .app_image {
+    opacity: 0.9;
+    top: 25%;
+    left: 70%;
+    max-width: 10rem;
+  }
+
+  .app_section .app_content .app_links img {
+    width: 8rem;
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 600px) {
@@ -339,6 +422,32 @@ h2 .center-star {
   .s-container h1 {
     font-size: 3.5rem;
     letter-spacing: 3px;
+  }
+  .app_section .app_image {
+    display: none;
+  }
+  .app_section {
+    grid-template-columns: 1fr;
+    padding: 20rem 0;
+    margin: 3rem 9%;
+  }
+  .app_section .app_content {
+    width: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .app_section .app_content h3 {
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .app_section .app_content p {
+    width: 100%;
+  }
+
+  .app_section .app_content .app_links img {
+    width: 8rem;
+    margin-right: 0;
   }
 }
 

@@ -7,6 +7,7 @@ import NavBar from "./components/navbar/NavBar";
 import PageNotFound from "./components/404/PageNotFound";
 import Menu from "./components/menu/Menu";
 import Feature from "./components/features/Feature";
+import DownloadApp from "./components/downloadapp/Downloadapp";
 
 function App() {
   // const [items, setItems] = useState([]);
@@ -33,6 +34,8 @@ function App() {
           <Header />
           <hr className="center-star" data-content="★" />
           <Feature />
+          <hr className="center-star" data-content="★" />
+          <DownloadApp />
         </Route>
         <Route path="/menu">
           <Menu />
