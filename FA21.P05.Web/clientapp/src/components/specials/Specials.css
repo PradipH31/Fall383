@@ -23,6 +23,13 @@
 .slick-next::before {
   display: none;
 }
+
+.specials-title {
+  text-align: center;
+  justify-content: center;
+  letter-spacing: 2px;
+}
+
 .custom-indicator {
   bottom: -65px;
 }

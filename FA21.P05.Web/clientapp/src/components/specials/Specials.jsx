@@ -28,21 +28,21 @@ const NextBtn = (props) => {
 };
 
 const Specials = () => {
-    // const [items, setItems] = useState([]);
-    // const [error, setError] = useState();
+    const [items, setItems] = useState([]);
+    const [error, setError] = useState();
 
-    // const getItems = () => {
-    //     return getMenuItems()
-    //         .then((data) => {
-    //             setItems(data);
-    //             console.log(data);
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
+    const getItems = () => {
+        return getMenuItems()
+            .then((data) => {
+                setItems(data);
+                console.log(data);
+            })
+            .catch((err) => console.log(err));
+    };
 
-    // useEffect(() => {
-    //     getItems();
-    // }, []);
+    useEffect(() => {
+        getItems();
+    }, []);
 
     return (
         <div style={{ margin: "10%" }} className="specials">
@@ -59,18 +59,21 @@ const Specials = () => {
                 ))}
             </Slider>
             <br />
-            {/* <h2>Specials this Week</h2> */}
-            <span>
-                {/* {JSON.stringify(items)} */}
-            </span>
-            {/* <div className="row">
-                {
-                    items.map((item, index) => (
-                        <Card key={index} items={item} />
-                    ))
+            <h2 className="specials-title">Specials this Week</h2>
+            {/* <span>
+                {JSON.stringify(items)}
+            </span> */}
+            <Slider prevArrow={<PreviousBtn />}
+                nextArrow={<NextBtn />
                 }
-            </div> */}
-
+                slidesToShow={4}
+                infinite={false}
+                slidesToScroll={2}
+            >
+                {items.map((item, index) => (
+                    <Card key={index} item={item} />
+                ))}
+            </Slider>
         </div>
     );
 };
