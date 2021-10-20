@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import NavBar from "./components/navbar/NavBar";
 import PageNotFound from "./components/404/PageNotFound";
-import Menu from "./components/menu/Menu";
+// import Menu from "./components/menu/Menu";
 import Feature from "./components/features/Feature";
 import DownloadApp from "./components/downloadapp/Downloadapp";
+import Specials from "./components/specials/Specials";
 
 function App() {
   // const [items, setItems] = useState([]);
@@ -38,7 +39,7 @@ function App() {
           <DownloadApp />
         </Route>
         <Route path="/menu">
-          <Menu />
+          <Specials />
         </Route>
         {/* 
               <Route path="/about" exact component={About} />
