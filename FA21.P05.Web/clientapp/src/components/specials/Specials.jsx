@@ -29,7 +29,7 @@ const NextBtn = (props) => {
 
 const Specials = () => {
     const [items, setItems] = useState([]);
-    const [error, setError] = useState();
+    // const [error, setError] = useState();
 
     const getItems = () => {
         return getMenuItems()
