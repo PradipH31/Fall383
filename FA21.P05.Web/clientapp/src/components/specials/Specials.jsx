@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Specials.css";
 import { specialsData } from "../testData/testData";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { getMenuItems } from "../../components/actions/home";
+import { getMenuItems } from "../../components/actions/menuitems";
 import { useEffect, useState } from "react";
 import Card from "../card/Card";
 
