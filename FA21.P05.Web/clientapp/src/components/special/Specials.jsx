@@ -2,9 +2,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Specials.css";
-import { specialsData } from "../testData/testData";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { getMenuItems } from "../../components/actions/home";
+import { getSpecialItems } from "../actions/menuitems";
 import { useEffect, useState } from "react";
 import Card from "../card/Card";
 
@@ -28,13 +27,12 @@ const NextBtn = (props) => {
 };
 
 const Specials = () => {
-    const [items, setItems] = useState([]);
-    const [error, setError] = useState();
+    const [specialItems, setSpecialItems] = useState([]);
 
     const getItems = () => {
-        return getMenuItems()
+        return getSpecialItems()
             .then((data) => {
-                setItems(data);
+                setSpecialItems(data);
                 console.log(data);
             })
             .catch((err) => console.log(err));
@@ -47,21 +45,9 @@ const Specials = () => {
     return (
         <div style={{ margin: "10%" }} className="specials">
 
-            <Slider prevArrow={<PreviousBtn />}
-                nextArrow={<NextBtn />
-                }
-                slidesToShow={4}
-                infinite={false}
-                slidesToScroll={2}
-            >
-                {specialsData.map((item, index) => (
-                    <Card key={index} item={item} />
-                ))}
-            </Slider>
-            <br />
             <h2 className="specials-title">Specials this Week</h2>
             {/* <span>
-                {JSON.stringify(items)}
+                {JSON.stringify(specialItems)}
             </span> */}
             <Slider prevArrow={<PreviousBtn />}
                 nextArrow={<NextBtn />
@@ -70,7 +56,7 @@ const Specials = () => {
                 infinite={false}
                 slidesToScroll={2}
             >
-                {items.map((item, index) => (
+                {specialItems.map((item, index) => (
                     <Card key={index} item={item} />
                 ))}
             </Slider>
