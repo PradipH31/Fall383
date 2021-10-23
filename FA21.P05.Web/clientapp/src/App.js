@@ -8,25 +8,10 @@ import PageNotFound from "./components/404/PageNotFound";
 // import Menu from "./components/menu/Menu";
 import Feature from "./components/features/Feature";
 import DownloadApp from "./components/downloadapp/Downloadapp";
-import Specials from "./components/specials/Specials";
+import Menu from "./components/menu/Menu";
+import Specials from "./components/special/Specials";
 
 function App() {
-  // const [items, setItems] = useState([]);
-  // const [error, setError] = useState();
-
-  // const getItems = () => {
-  //   return getMenuItems()
-  //     .then((data) => {
-  //       setItems(data);
-  //       console.log(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // useEffect(() => {
-  //   getItems();
-  // }, []);
-
   return (
     <Router>
       <NavBar />
@@ -36,10 +21,12 @@ function App() {
           <hr className="center-star" data-content="★" />
           <Feature />
           <hr className="center-star" data-content="★" />
+          <Specials />
+          <hr className="center-star" data-content="★" />
           <DownloadApp />
         </Route>
         <Route path="/menu">
-          <Specials />
+          <Menu />
         </Route>
         {/* 
               <Route path="/about" exact component={About} />
