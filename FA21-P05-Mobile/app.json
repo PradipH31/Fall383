@@ -4,12 +4,7 @@
     "slug": "FA21-P05-G03-Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "icon": "./assets/splash_ios.png",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -17,12 +12,20 @@
       "**/*"
     ],
     "ios": {
+      "splash": {
+        "image": "./assets/splashios.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#ffffff"
+      },
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "splash": {
+        "mdpi": "./assets/splashandroid.png"
       },
       "package": "com.SELU.FoodToGo"
     },
