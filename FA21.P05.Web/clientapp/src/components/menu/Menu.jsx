@@ -29,7 +29,6 @@ const NextBtn = (props) => {
 
 const Menu = () => {
     const [items, setItems] = useState([]);
-    // const [error, setError] = useState();
 
     const getItems = () => {
         return getMenuItems()
@@ -46,7 +45,7 @@ const Menu = () => {
 
     return (
         <div style={{ margin: "10%" }} className="specials">
-
+            <h2 className="specials-title">Today's Menu</h2>
             <Slider prevArrow={<PreviousBtn />}
                 nextArrow={<NextBtn />
                 }
