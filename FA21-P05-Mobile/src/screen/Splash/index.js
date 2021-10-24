@@ -18,7 +18,7 @@ const Splash = () => {
       <AppStatusBar backgroundColor={Colors.primary} barStyle="dark-content" />
       <Image
         source={require("../../../assets/splash_ios.png")}
-        style={{ width: 300, height: 300 }}
+        style={styles.logo}
       />
       {/* <Text
         style={{
@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Colors.white,
+  },
+  logo: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain",
   },
 });
 
