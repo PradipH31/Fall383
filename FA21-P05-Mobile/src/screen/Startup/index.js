@@ -36,15 +36,15 @@ function Startup() {
     navigation.replace("Login");
   };
 
-  const _renderItem = ({ item }) => {
-    return (
-      <View style={styles.slide}>
-        <Image source={item.image} style={styles.imageStyle} />
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.desc}>{item.text}</Text>
-      </View>
-    );
-  };
+  // const _renderItem = ({ item }) => {
+  //   return (
+  //     <View style={styles.slide}>
+  //       <Image source={item.image} style={styles.imageStyle} />
+  //       <Text style={styles.title}>{item.title}</Text>
+  //       <Text style={styles.desc}>{item.text}</Text>
+  //     </View>
+  //   );
+  // };
 
   const _nextbutton = () => {
     return (
@@ -111,14 +111,12 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   title: {
-    fontFamily: "Helvetica",
     fontWeight: "900",
     fontSize: 30,
     color: Colors.primary,
   },
 
   desc: {
-    fontFamily: "Helvetica",
     fontSize: 16,
     color: Colors.secondary,
     textAlign: "center",
@@ -137,13 +135,12 @@ const styles = StyleSheet.create({
   next: {
     alignSelf: "center",
     color: Colors.white,
-    fontFamily: "Helvetica",
     fontSize: 16,
   },
   done: {
     alignSelf: "center",
     color: Colors.white,
-    fontFamily: "Helvetica",
+    // fontFamily: "Helvetica",
     fontSize: 16,
   },
 });
