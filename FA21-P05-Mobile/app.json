@@ -4,9 +4,9 @@
     "slug": "FA21-P05-G03-Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/splash_ios.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splashandroid.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
