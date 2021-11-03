@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AppStatusBar from "../../components/StatusBar/index";
 import {
   View,
@@ -10,8 +10,10 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
   Image,
 } from "react-native";
+import PhoneInput from "react-native-phone-number-input";
 import logo1 from "../../../assets/logo1.png";
 import Colors from "../theme/Colors";
 import { Octicons, Ionicons } from "@expo/vector-icons";
@@ -20,13 +22,14 @@ import { useNavigation } from "@react-navigation/core";
 const Register = () => {
   const navigation = useNavigation();
   const [notVisible, setNotVisible] = useState(true);
-  const [fullName, setFullName] = useState();
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
+  const [fullName, setFullName] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
   const [email, setEmail] = useState();
-  // const [mobile, setConfirmMobile] = useState();
+  const [mobile, setConfirmMobile] = useState();
+  const [formattedValue, setFormattedValue] = useState("");
 
   const signup = (e) => {
     e.preventDefault();
@@ -38,6 +41,29 @@ const Register = () => {
       Alert.alert("Login Button Triggered.");
     }
   };
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  const phoneInput = useRef(phoneInput);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -45,7 +71,7 @@ const Register = () => {
       keyboardVerticalOffset={0}
       // behavior="position"
     >
-      <ScrollView>
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <AppStatusBar />
         <View style={styles.innerContainer}>
           <Image source={logo1} style={styles.logo} />
@@ -81,6 +107,19 @@ const Register = () => {
               value={email}
               type="text"
             />
+            <View style={{ alignContent: "center", alignItems: "center" }}>
+              <PhoneInput
+                ref={phoneInput}
+                defaultValue={mobile}
+                defaultCode="US"
+                layout="first"
+                onChangeText={(text) => {
+                  setConfirmMobile(text);
+                }}
+                onChangeFormattedText={(text) => setFormattedValue(text)}
+                withDarkTheme
+              />
+            </View>
             <InputText
               label="Password"
               icon="lock"
@@ -89,20 +128,6 @@ const Register = () => {
               placeholderTextColor={"#b0b0b0"}
               onChangetext={setPassword}
               value={password}
-              type="password"
-              secureTextEntry={notVisible}
-              isPassword={true}
-              notVisible={notVisible}
-              setNotVisible={setNotVisible}
-            />
-            <InputText
-              label="Confirm Password"
-              icon="lock"
-              placeholder="* * * * * * * *"
-              placeholderTextColor={"#b0b0b0"}
-              name="confirmPassword"
-              onChangetext={setConfirmPassword}
-              value={confirmPassword}
               type="password"
               secureTextEntry={notVisible}
               isPassword={true}
@@ -260,6 +285,26 @@ const styles = StyleSheet.create({
     top: 35,
     position: "absolute",
     zIndex: 1,
+  },
+  button: {
+    marginTop: 20,
+    height: 50,
+    width: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#7CDB8A",
+    shadowColor: "rgba(0,0,0,0.4)",
+    shadowOffset: {
+      width: 1,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  },
+  buttonText1: {
+    color: "white",
+    fontSize: 14,
   },
   buttonInput: {
     padding: 15,

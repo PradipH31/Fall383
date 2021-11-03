@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppStatusBar from "../../components/StatusBar/index";
 import {
   View,
@@ -6,10 +6,10 @@ import {
   ScrollView,
   Text,
   Alert,
+  Keyboard,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform,
 } from "react-native";
 import Logo from "../../components/Logo";
 import Colors from "../theme/Colors";
@@ -30,6 +30,7 @@ const Login = () => {
       Alert.alert("Login Button Triggered.");
     }
   };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -37,7 +38,7 @@ const Login = () => {
       keyboardVerticalOffset={0}
       // behavior="position"
     >
-      <ScrollView>
+      <ScrollView bounces={false}>
         <AppStatusBar />
         <View style={styles.innerContainer}>
           <Logo />

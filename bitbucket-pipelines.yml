@@ -20,7 +20,7 @@ pipelines:
         - step:
             name: "Build/Test Mobile"
             deployment: test-mobile
-            image: node:alpine
+            image: node:14-alpine
             caches:
               - npm
             script:
@@ -52,7 +52,7 @@ pipelines:
           - step:
               name: "Build/Test/Publish Expo"
               deployment: test-mobile
-              image: node:alpine
+              image: node:14-alpine
               caches:
                 - npm
               script:
