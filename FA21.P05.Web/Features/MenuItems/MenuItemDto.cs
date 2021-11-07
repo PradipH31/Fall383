@@ -14,6 +14,8 @@ namespace FA21.P05.Web.Features.MenuItems
 
         public decimal Price { get; set; }
 
+        public int CategoryId { get; set; }
+
         public bool IsSpecial { get; set; }
     }
 }

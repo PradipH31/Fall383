@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using FA21.P05.Web.Data;
@@ -22,35 +23,112 @@ namespace FA21.P05.Web.HostedServices
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            using var scope = serviceProvider.CreateScope();
+            using
+            var scope = serviceProvider.CreateScope();
 
-            await using var dataContext = scope.ServiceProvider.GetService<DataContext>() ?? throw new Exception("Missing DataContext");
-            using var userManager = scope.ServiceProvider.GetService<UserManager<User>>() ?? throw new Exception("Missing UserManager<User>");
-            using var roleManager = scope.ServiceProvider.GetService<RoleManager<Role>>() ?? throw new Exception("Missing RoleManager<Role>");
+            await using
+            var dataContext = scope.ServiceProvider.GetService<DataContext>() ??
+              throw new Exception("Missing DataContext");
+            using
+            var userManager = scope.ServiceProvider.GetService<UserManager<User>>() ??
+              throw new Exception("Missing UserManager<User>");
+            using
+            var roleManager = scope.ServiceProvider.GetService<RoleManager<Role>>() ??
+              throw new Exception("Missing RoleManager<Role>");
+
+            var categories = dataContext.Set<Category>();
+            if (!await categories.AnyAsync(cancellationToken))
+            {
+                categories.AddRange(
+                  new Category
+                  {
+                      Name = "Entrees"
+                  },
+                  new Category
+                  {
+                      Name = "Drinks"
+                  },
+                  new Category
+                  {
+                      Name = "Sides"
+                  },
+                  new Category
+                  {
+                      Name = "Burger Addons"
+                  },
+                  new Category
+                  {
+                      Name = "Pizza Addons"
+                  }
+                );
+
+            }
 
             var menuItems = dataContext.Set<MenuItem>();
             if (!await menuItems.AnyAsync(cancellationToken))
             {
                 menuItems.AddRange(
-                    new MenuItem
-                    {
-                        Name = "Pizza",
-                        Description = "Pick your own toppings",
-                        IsSpecial = true,
-                        Price = 5.99m
-                    },
-                    new MenuItem
-                    {
-                        Name = "Salad",
-                        Description = "Fresh greens",
-                        Price = 10.99m
-                    },
-                    new MenuItem
-                    {
-                        Name = "Cereal",
-                        Description = "Comes with optional Malk",
-                        Price = 27.36m
-                    }
+                  //new MenuItem
+                  //{
+                  //    Name = "Pizza",
+                  //    Description = "Pick your own toppings",
+                  //    IsSpecial = true,
+                  //    Price = 5.99m
+                  //},
+                  //new MenuItem
+                  //{
+                  //    Name = "Salad",
+                  //    Description = "Fresh greens",
+                  //    Price = 10.99m
+                  //},
+                  //new MenuItem
+                  //{
+                  //    Name = "Cereal",
+                  //    Description = "Comes with optional Malk",
+                  //    Price = 27.36m
+                  //}
+                  new MenuItem
+                  {
+                      Name = "Personal Pizza",
+                      Price = 8.99m,
+                      Description="Pick your own toppings",
+                      CategoryId = 1
+                  },
+                  new MenuItem
+                  {
+                      Name = "Medium Pizza",
+                      Price = 2.99m,
+                      Description = "Pick your own toppings",
+                      CategoryId = 1
+                  },
+                  new MenuItem
+                  {
+                      Name = "Large Pizza",
+                      Price = 8.99m,
+                      Description = "Pick your own toppings",
+                      CategoryId = 1
+                  },
+                  new MenuItem
+                  {
+                      Name = "Mini Burger",
+                      Price = 5.99m,
+                      Description = "Pick your own toppings",
+                      CategoryId = 1
+                  },
+                  new MenuItem
+                  {
+                      Name = "Burger",
+                      Price = 7.99m,
+                      Description = "Pick your own toppings",
+                      CategoryId = 1
+                  },
+                  new MenuItem
+                  {
+                      Name = "Turkey Burger",
+                      Price = 7.99m,
+                      Description = "Pick your own toppings",
+                      CategoryId = 1
+                  }
                 );
             }
 

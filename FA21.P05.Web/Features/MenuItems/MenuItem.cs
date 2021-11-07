@@ -12,6 +12,8 @@ namespace FA21.P05.Web.Features.MenuItems
         public string Description { get; set; }
         public decimal Price { get; set; }
         public bool IsSpecial { get; set; }
+        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
 
         public virtual ICollection<OrderItem> InOrders { get; set; } = new List<OrderItem>();
     }

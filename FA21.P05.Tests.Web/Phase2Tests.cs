@@ -107,7 +107,7 @@ namespace FA21.P05.Tests.Web
             await webClient.LogInAsAdmin();
             var request = new MenuItemDto
             {
-                Name = "long".PadRight(121,'!'),
+                Name = "long".PadRight(121, '!'),
                 Description = "asd",
                 Price = 1
             };
@@ -184,12 +184,18 @@ namespace FA21.P05.Tests.Web
             {
                 Description = "asd",
                 Name = "asd",
-                Price = 1
+                Price = 1,
+                CategoryId = 1
             };
 
             var webClient = context.GetStandardWebClient();
             await webClient.LogInAsAdmin();
-
+            using var itemHandle = await CreateCategory(webClient, request);
+            if (itemHandle == null)
+            {
+                // you are not ready for this test
+                return;
+            }
             //act
             var httpResponse = await webClient.PostAsJsonAsync("/api/menu-items", request);
 
@@ -428,7 +434,7 @@ namespace FA21.P05.Tests.Web
             target.Price = 0;
 
             //act
-            var httpResponse = await webClient.PutAsJsonAsync($"/api/menu-items/{target.Id+21}", target);
+            var httpResponse = await webClient.PutAsJsonAsync($"/api/menu-items/{target.Id + 21}", target);
 
             //assert
             httpResponse.StatusCode.Should().Be(HttpStatusCode.NotFound, "we expect an HTTP 404 when calling PUT /api/menu-items/{id} with a bad id");
@@ -476,6 +482,20 @@ namespace FA21.P05.Tests.Web
                 return null;
             }
         }
+        private async Task<IDisposable> CreateCategory(HttpClient webClient, MenuItemDto request)
+        {
+            try
+            {
+                var httpResponse = await webClient.PostAsJsonAsync("/api/categories", request);
+                await AssertCreateFunctions(httpResponse, request, webClient);
+                return new DeleteItem(request, webClient);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
 
         private static async Task<MenuItemDto> GetItem(HttpClient webClient)
         {
