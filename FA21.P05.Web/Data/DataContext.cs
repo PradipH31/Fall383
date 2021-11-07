@@ -1,5 +1,6 @@
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
+using FA21.P05.Web.Features.MenuItems.Categories;
 using FA21.P05.Web.Features.Orders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
