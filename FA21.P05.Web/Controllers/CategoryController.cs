@@ -5,13 +5,12 @@ using System.Linq.Expressions;
 using FA21.P05.Web.Data;
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
-using FA21.P05.Web.Features.Orders;
+using FA21.P05.Web.Features.MenuItems.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FA21.P05.Web.Controllers
 {
-    [Authorize(Roles = RoleNames.Admin)]
     [ApiController]
     [Route("api/categories")]
     public class CategoryController : ControllerBase
@@ -49,7 +48,8 @@ namespace FA21.P05.Web.Controllers
         {
             var result = dataContext
                 .Set<Category>()
-                .Select(MapDto())
+                .Select(MapDtoWithMenuItems()
+                )
                 .FirstOrDefault(x => x.Id == id);
             if (result == null)
             {
@@ -59,9 +59,27 @@ namespace FA21.P05.Web.Controllers
             return result;
         }
 
+        private static Expression<Func<Category, CategoryDto>> MapDtoWithMenuItems()
+        {
+            return x => new CategoryDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                MenuItems = x.MenuItems.Select(y => new MenuItemDto
+                {
+                    Id = y.Id,
+                    Name = y.Name,
+                    CategoryId = y.CategoryId,
+                    Description = y.Description,
+                    IsSpecial = y.IsSpecial,
+                    Price = y.Price
+                })
+            };
+        }
+
         [HttpPut]
-        [Route("{id}")]
         [Authorize(Roles = RoleNames.StaffOrAdmin)]
+        [Route("{id}")]
         public ActionResult<CategoryDto> Update(int id, CategoryDto item)
         {
             var entity = dataContext
@@ -88,7 +106,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Roles = RoleNames.StaffOrAdmin)]
         public ActionResult<CategoryDto> Create(CategoryDto Category)
         {
             if (Category.Name.Equals(""))
@@ -110,6 +128,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = RoleNames.Admin)]
         [Route("{id}")]
         public ActionResult Delete(int id)
         {
