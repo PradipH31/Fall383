@@ -130,7 +130,7 @@ namespace FA21.P05.Web.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.Category", b =>
+            modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.Categories.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -139,6 +139,9 @@ namespace FA21.P05.Web.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isAddon")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -343,7 +346,7 @@ namespace FA21.P05.Web.Migrations
 
             modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.MenuItem", b =>
                 {
-                    b.HasOne("FA21.P05.Web.Features.MenuItems.Category", "Category")
+                    b.HasOne("FA21.P05.Web.Features.MenuItems.Categories.Category", "Category")
                         .WithMany("MenuItems")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -417,7 +420,7 @@ namespace FA21.P05.Web.Migrations
                     b.Navigation("Roles");
                 });
 
-            modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.Category", b =>
+            modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.Categories.Category", b =>
                 {
                     b.Navigation("MenuItems");
                 });

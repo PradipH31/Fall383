@@ -2,7 +2,7 @@
 
 namespace FA21.P05.Web.Migrations
 {
-    public partial class AddedCategory : Migration
+    public partial class AddCategories : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,8 @@ namespace FA21.P05.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    isAddon = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
