@@ -1,4 +1,4 @@
-﻿namespace FA21.P05.Web.Features.Orders
+﻿namespace FA21.P05.Web.Features.Orders.Dto
 {
     public class OrderItemDto
     {
@@ -7,5 +7,6 @@
         public decimal LineItemPrice { get; set; }
         public int LineItemQuantity { get; set; }
         public decimal LineItemTotal { get; set; }
+        public int? AddonOrderId { get; set; }
     }
 }

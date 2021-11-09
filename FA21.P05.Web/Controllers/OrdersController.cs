@@ -5,6 +5,7 @@ using FA21.P05.Web.Data;
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
 using FA21.P05.Web.Features.Orders;
+using FA21.P05.Web.Features.Orders.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,8 +37,9 @@ namespace FA21.P05.Web.Controllers
                     LineItemPrice = y.LineItemPrice,
                     LineItemQuantity = y.LineItemQuantity,
                     LineItemTotal = y.LineItemTotal,
-                    MenuItemId = y.MenuItemId
-                })
+                    MenuItemId = y.MenuItemId,
+                    AddonOrderId = y.AddonOrderId
+                }),
             };
         }
 
@@ -81,7 +83,7 @@ namespace FA21.P05.Web.Controllers
                     return BadRequest();
                 }
 
-                var orderItem = new OrderItem 
+                var orderItem = new OrderItem
                 {
                     LineItemPrice = menuItem.Price,
                     LineItemQuantity = item.LineItemQuantity,
@@ -98,16 +100,16 @@ namespace FA21.P05.Web.Controllers
             var dto = new OrderDto()
             {
                 Id = createdOrder.Id,
-                 OrderTotal = createdOrder.OrderTotal,
-                 Placed = createdOrder.Placed,
-                 OrderItems = createdOrder.OrderItems.Select(y => new OrderItemDto
-                 {
-                     Id = y.Id,
-                     LineItemPrice = y.LineItemPrice,
-                     LineItemQuantity = y.LineItemQuantity,
-                     LineItemTotal = y.LineItemTotal,
-                     MenuItemId = y.MenuItemId
-                 })
+                OrderTotal = createdOrder.OrderTotal,
+                Placed = createdOrder.Placed,
+                OrderItems = createdOrder.OrderItems.Select(y => new OrderItemDto
+                {
+                    Id = y.Id,
+                    LineItemPrice = y.LineItemPrice,
+                    LineItemQuantity = y.LineItemQuantity,
+                    LineItemTotal = y.LineItemTotal,
+                    MenuItemId = y.MenuItemId
+                })
             };
 
             return CreatedAtAction(nameof(GetById), new { id = createdOrder.Id }, dto);

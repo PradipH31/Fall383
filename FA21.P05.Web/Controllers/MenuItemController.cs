@@ -31,7 +31,6 @@ namespace FA21.P05.Web.Controllers
                 Description = x.Description,
                 IsSpecial = x.IsSpecial,
                 Name = x.Name,
-                CategoryId = x.CategoryId
             };
         }
 
@@ -84,7 +83,6 @@ namespace FA21.P05.Web.Controllers
             entity.Description = item.Description;
             entity.Name = item.Name;
             entity.IsSpecial = item.IsSpecial;
-            entity.CategoryId = item.CategoryId;
             dataContext.SaveChanges();
 
             return new MenuItemDto
@@ -93,7 +91,6 @@ namespace FA21.P05.Web.Controllers
                 Price = entity.Price,
                 Description = entity.Description,
                 IsSpecial = entity.IsSpecial,
-                CategoryId = entity.CategoryId,
                 Name = entity.Name
             };
         }
@@ -127,7 +124,6 @@ namespace FA21.P05.Web.Controllers
                     Price = menuItem.Price,
                     IsSpecial = menuItem.IsSpecial,
                     Name = menuItem.Name,
-                    CategoryId = menuItem.CategoryId
                 });
 
             dataContext.SaveChanges();

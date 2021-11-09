@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FA21.P05.Web.Features.AddonItems;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FA21.P05.Web.Features.MenuItems
 {
@@ -14,8 +16,9 @@ namespace FA21.P05.Web.Features.MenuItems
 
         public decimal Price { get; set; }
 
-        public int CategoryId { get; set; }
+        public int MenuCategoryId { get; set; }
 
+        public virtual ICollection<AddonItem> Addons { get; set; } = new List<AddonItem>();
         public bool IsSpecial { get; set; }
     }
 }

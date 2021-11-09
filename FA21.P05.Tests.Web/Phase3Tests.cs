@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FA21.P05.Tests.Web.Helpers;
 using FA21.P05.Web.Features.MenuItems;
 using FA21.P05.Web.Features.Orders;
+using FA21.P05.Web.Features.Orders.Dto;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

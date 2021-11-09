@@ -1,4 +1,5 @@
 using FA21.P05.Web.Features.MenuItems;
+using FA21.P05.Web.Features.Orders.Addon;
 
 namespace FA21.P05.Web.Features.Orders
 {
@@ -11,6 +12,8 @@ namespace FA21.P05.Web.Features.Orders
 
         public int MenuItemId { get; set; }
         public virtual MenuItem MenuItem { get; set; }
+        public int? AddonOrderId { get; set; }
+        public virtual AddonOrder? AddonOrder { get; set; }
 
         public int OrderId { get; set; }
         public virtual Order Order { get; set; }

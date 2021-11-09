@@ -1,6 +1,6 @@
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
-using FA21.P05.Web.Features.MenuItems.Categories;
+using FA21.P05.Web.Features.Categories;
 using FA21.P05.Web.Features.Orders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -35,7 +35,7 @@ namespace FA21.P05.Web.Data
             // you can also just manually configure these
             modelBuilder.Entity<Order>();
             modelBuilder.Entity<OrderItem>();
-            modelBuilder.Entity<Category>();
+            modelBuilder.Entity<MenuCategory>();
         }
     }
 }
