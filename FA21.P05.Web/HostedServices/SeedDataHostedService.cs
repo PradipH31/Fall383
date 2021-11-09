@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FA21.P05.Web.Features.AddonItems;
 
 namespace FA21.P05.Web.HostedServices
 {
@@ -37,10 +38,10 @@ namespace FA21.P05.Web.HostedServices
             var roleManager = scope.ServiceProvider.GetService<RoleManager<Role>>() ??
               throw new Exception("Missing RoleManager<Role>");
 
-            var categories = dataContext.Set<MenuCategory>();
-            if (!await categories.AnyAsync(cancellationToken))
+            var menuCategories = dataContext.Set<MenuCategory>();
+            if (!await menuCategories.AnyAsync(cancellationToken))
             {
-                categories.AddRange(
+                menuCategories.AddRange(
                   new MenuCategory
                   {
                       Name = "Entrees"
@@ -52,12 +53,23 @@ namespace FA21.P05.Web.HostedServices
                   new MenuCategory
                   {
                       Name = "Sides"
+                  }
+                );
+            }
+
+            var addonCategories = dataContext.Set<AddonCategory>();
+            if (!await addonCategories.AnyAsync(cancellationToken))
+            {
+                addonCategories.AddRange(
+                  new AddonCategory
+                  {
+                      Name = "No Addons"
                   },
-                  new MenuCategory
+                  new AddonCategory
                   {
                       Name = "Burger Addons",
                   },
-                  new MenuCategory
+                  new AddonCategory
                   {
                       Name = "Pizza Addons",
                   }
@@ -68,6 +80,262 @@ namespace FA21.P05.Web.HostedServices
             if (!await menuItems.AnyAsync(cancellationToken))
             {
                 AddMenuItems(menuItems);
+            }
+
+            var addonItems = dataContext.Set<AddonItem>();
+            if (!await addonItems.AnyAsync(cancellationToken))
+            {
+                addonItems.AddRange(
+                  new AddonItem
+                  {
+                      Name = "Mayo",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Onion",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Relish",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Lettuce",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Ketchup",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Pickles",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Mustard",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Tomatoes",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "BBQ Sauce",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Hot Sauce",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  }, new AddonItem
+                  {
+                      Name = "Cheddar Cheese",
+                      Price = 0.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  }, new AddonItem
+                  {
+                      Name = "Mozzarella Cheese",
+                      Price = 0.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  }, new AddonItem
+                  {
+                      Name = "Provolone Cheese",
+                      Price = 0.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  },
+                  new AddonItem
+                  {
+                      Name = "Avocado",
+                      Price = 0.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  },
+                  new AddonItem
+                  {
+                      Name = "Fried Egg",
+                      Price = 0.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  },
+                  new AddonItem
+                  {
+                      Name = "Extra Patty",
+                      Price = 2.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  },
+                  new AddonItem
+                  {
+                      Name = "Bacon (2 slice)",
+                      Price = 1.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  },
+                  new AddonItem
+                  {
+                      Name = "Extra Turkey Patty",
+                      Price = 2.99m,
+                      Description = "Make your burger premium",
+                      AddonCategoryId = 2
+                  },
+                  new AddonItem
+                  {
+                      Name = "Grilled Onions",
+                      Price = 0m,
+                      AddonCategoryId = 2,
+                      Description = "Make your burger more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Pepper",
+                      Price = 0m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Garlic Drizzle",
+                      Price = 0m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more deluxe"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Small Grilled Chicken",
+                      Price = 2.50m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Medium Grilled Chicken",
+                      Price = 3.75m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Large Grilled Chicken",
+                      Price = 4.50m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Small Pepperoni",
+                      Price = 0.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Medium Pepperoni",
+                      Price = 1.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Large Pepperoni",
+                      Price = 2.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Small Cheddar Extra Cheese",
+                      Price = 1.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Small Mozzarella Extra Cheese",
+                      Price = 1.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Small Provolone Extra Cheese",
+                      Price = 1.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Medium Cheddar Extra Cheese",
+                      Price = 2.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Medium Mozzarella Extra Cheese",
+                      Price = 2.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Medium Provolone Extra Cheese",
+                      Price = 2.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Large Cheddar Extra Cheese",
+                      Price = 3.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Large Mozzarella Extra Cheese",
+                      Price = 3.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  },
+                  new AddonItem
+                  {
+                      Name = "Large Provolone Extra Cheese",
+                      Price = 3.99m,
+                      AddonCategoryId = 3,
+                      Description = "Make your pizza more premium"
+                  }
+                );
             }
 
             var anyRoles = await roleManager.Roles.AnyAsync(cancellationToken);
@@ -114,29 +382,33 @@ namespace FA21.P05.Web.HostedServices
                   Name = "Personal Pizza",
                   Price = 8.99m,
                   Description = "Pick your own toppings",
-                  MenuCategoryId = 2,
-                  IsSpecial = true
+                  MenuCategoryId = 1,
+                  IsSpecial = true,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Medium Pizza",
                   Price = 2.99m,
                   Description = "Pick your own toppings",
-                  MenuCategoryId = 1
+                  MenuCategoryId = 1,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Large Pizza",
                   Price = 8.99m,
                   Description = "Pick your own toppings",
-                  MenuCategoryId = 3
+                  MenuCategoryId = 1,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Mini Burger",
                   Price = 5.99m,
                   Description = "Pick your own toppings",
-                  MenuCategoryId = 1
+                  MenuCategoryId = 1,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
@@ -144,27 +416,31 @@ namespace FA21.P05.Web.HostedServices
                   Price = 7.99m,
                   Description = "Pick your own toppings",
                   MenuCategoryId = 1,
-                  IsSpecial = true
+                  IsSpecial = true,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Turkey Burger",
                   Price = 7.99m,
                   Description = "Pick your own toppings",
-                  MenuCategoryId = 1
+                  MenuCategoryId = 1,
+                  AddonCategoryId = 1
               }, new MenuItem
               {
                   Name = "Bottled Water",
                   Price = 1.99m,
                   Description = "Chill",
-                  MenuCategoryId = 2
+                  MenuCategoryId = 2,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Medium Soda",
                   Price = 2.99m,
                   Description = "Chill",
-                  MenuCategoryId = 2
+                  MenuCategoryId = 2,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
@@ -172,28 +448,32 @@ namespace FA21.P05.Web.HostedServices
                   Price = 3.99m,
                   Description = "Chill",
                   MenuCategoryId = 2,
-                  IsSpecial = true
+                  IsSpecial = true,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Chocolate Milk Shake",
                   Price = 4.99m,
                   Description = "Chill",
-                  MenuCategoryId = 2
+                  MenuCategoryId = 2,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Strawberry Milk Shake",
                   Price = 4.99m,
                   Description = "Chill",
-                  MenuCategoryId = 2
+                  MenuCategoryId = 2,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Vanilla Milk Shake",
                   Price = 4.99m,
                   Description = "Chill",
-                  MenuCategoryId = 2
+                  MenuCategoryId = 2,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
@@ -201,7 +481,8 @@ namespace FA21.P05.Web.HostedServices
                   Price = 3.99m,
                   MenuCategoryId = 3,
                   Description = "It's beside you",
-                  IsSpecial = true
+                  IsSpecial = true,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
@@ -209,265 +490,16 @@ namespace FA21.P05.Web.HostedServices
                   Price = 3.99m,
                   MenuCategoryId = 3,
                   Description = "It's beside you",
-                  IsSpecial = true
+                  IsSpecial = true,
+                  AddonCategoryId = 1
               },
               new MenuItem
               {
                   Name = "Small Coleslaw",
                   Price = 1.99m,
                   MenuCategoryId = 3,
+                  AddonCategoryId = 1,
                   Description = "It's beside you"
-              },
-              new MenuItem
-              {
-                  Name = "Mayo",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Onion",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Relish",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Lettuce",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Ketchup",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Pickles",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Mustard",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Tomatoes",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "BBQ Sauce",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Hot Sauce",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              }, new MenuItem
-              {
-                  Name = "Cheddar Cheese",
-                  Price = 0.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              }
-              , new MenuItem
-              {
-                  Name = "Mozzarella Cheese",
-                  Price = 0.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              }
-              , new MenuItem
-              {
-                  Name = "Provolone Cheese",
-                  Price = 0.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              },
-              new MenuItem
-              {
-                  Name = "Avocado",
-                  Price = 0.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              },
-              new MenuItem
-              {
-                  Name = "Fried Egg",
-                  Price = 0.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              },
-              new MenuItem
-              {
-                  Name = "Extra Patty",
-                  Price = 2.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              },
-              new MenuItem
-              {
-                  Name = "Bacon (2 slice)",
-                  Price = 1.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              },
-              new MenuItem
-              {
-                  Name = "Extra Turkey Patty",
-                  Price = 2.99m,
-                  Description = "Make your burger premium",
-                  MenuCategoryId = 4
-              },
-              new MenuItem
-              {
-                  Name = "Grilled Onions",
-                  Price = 0m,
-                  MenuCategoryId = 4,
-                  Description = "Make your burger more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Pepper",
-                  Price = 0m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Garlic Drizzle",
-                  Price = 0m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more deluxe"
-              },
-              new MenuItem
-              {
-                  Name = "Small Grilled Chicken",
-                  Price = 2.50m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Medium Grilled Chicken",
-                  Price = 3.75m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Large Grilled Chicken",
-                  Price = 4.50m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Small Pepperoni",
-                  Price = 0.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Medium Pepperoni",
-                  Price = 1.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Large Pepperoni",
-                  Price = 2.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Small Cheddar Extra Cheese",
-                  Price = 1.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Small Mozzarella Extra Cheese",
-                  Price = 1.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Small Provolone Extra Cheese",
-                  Price = 1.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Medium Cheddar Extra Cheese",
-                  Price = 2.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Medium Mozzarella Extra Cheese",
-                  Price = 2.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Medium Provolone Extra Cheese",
-                  Price = 2.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Large Cheddar Extra Cheese",
-                  Price = 3.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Large Mozzarella Extra Cheese",
-                  Price = 3.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
-              },
-              new MenuItem
-              {
-                  Name = "Large Provolone Extra Cheese",
-                  Price = 3.99m,
-                  MenuCategoryId = 5,
-                  Description = "Make your pizza more premium"
               }
             );
         }

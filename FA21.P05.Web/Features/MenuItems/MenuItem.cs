@@ -17,9 +17,7 @@ namespace FA21.P05.Web.Features.MenuItems
         public int MenuCategoryId { get; set; }
         public virtual MenuCategory Category { get; set; }
         public int? AddonCategoryId { get; set; }
-        public virtual AddonCategory? AddonCategory { get; set; }
-        public virtual ICollection<AddonItem> Addons { get; set; } = new List<AddonItem>();
-
+        public virtual AddonCategory AddonCategory { get; set; }
         public virtual ICollection<OrderItem> InOrders { get; set; } = new List<OrderItem>();
     }
 

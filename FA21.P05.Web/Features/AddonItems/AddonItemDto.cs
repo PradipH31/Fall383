@@ -13,6 +13,5 @@ namespace FA21.P05.Web.Features.AddonItems
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int AddonCategoryId { get; set; }
-        public virtual AddonCategory AddonCategory { get; set; }
     }
 }

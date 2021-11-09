@@ -9,7 +9,7 @@ namespace FA21.P05.Web.Features.Categories
     public class AddonCategoryDto
     {
         public int Id { get; set; }
-        public int Name { get; set; }
-        public virtual ICollection<AddonItem> AddonItems { get; set; } = new List<AddonItem>();
+        public string Name { get; set; }
+        public virtual IEnumerable<AddonItemDto> AddonItemDtos { get; set; } = new List<AddonItemDto>();
     }
 }

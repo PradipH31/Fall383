@@ -4,14 +4,16 @@ using FA21.P05.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FA21.P05.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211109124042_LinkedAddonsToMenuItems")]
+    partial class LinkedAddonsToMenuItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +34,9 @@ namespace FA21.P05.Web.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MenuItemId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -41,6 +46,8 @@ namespace FA21.P05.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddonCategoryId");
+
+                    b.HasIndex("MenuItemId");
 
                     b.ToTable("AddonItem");
                 });
@@ -193,7 +200,7 @@ namespace FA21.P05.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddonCategoryId")
+                    b.Property<int>("AddonCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -231,7 +238,7 @@ namespace FA21.P05.Web.Migrations
                     b.Property<int>("AddonItemId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("AddonItemPrice")
+                    b.Property<decimal>("LineItemTotal")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("OrderItemId")
@@ -283,23 +290,17 @@ namespace FA21.P05.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AddonItemTotal")
+                    b.Property<decimal>("LineItemPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("LineItemQuantity")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("LineItemTotal")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("MenuItemId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("MenuItemPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("MenuItemQuantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("MenuItemTotal")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -407,6 +408,10 @@ namespace FA21.P05.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FA21.P05.Web.Features.MenuItems.MenuItem", null)
+                        .WithMany("Addons")
+                        .HasForeignKey("MenuItemId");
+
                     b.Navigation("AddonCategory");
                 });
 
@@ -432,8 +437,10 @@ namespace FA21.P05.Web.Migrations
             modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.MenuItem", b =>
                 {
                     b.HasOne("FA21.P05.Web.Features.Categories.AddonCategory", "AddonCategory")
-                        .WithMany("MenuItems")
-                        .HasForeignKey("AddonCategoryId");
+                        .WithMany()
+                        .HasForeignKey("AddonCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FA21.P05.Web.Features.Categories.MenuCategory", "Category")
                         .WithMany("MenuItems")
@@ -523,8 +530,6 @@ namespace FA21.P05.Web.Migrations
             modelBuilder.Entity("FA21.P05.Web.Features.Categories.AddonCategory", b =>
                 {
                     b.Navigation("AddonItems");
-
-                    b.Navigation("MenuItems");
                 });
 
             modelBuilder.Entity("FA21.P05.Web.Features.Categories.MenuCategory", b =>
@@ -544,6 +549,8 @@ namespace FA21.P05.Web.Migrations
 
             modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.MenuItem", b =>
                 {
+                    b.Navigation("Addons");
+
                     b.Navigation("InOrders");
                 });
 

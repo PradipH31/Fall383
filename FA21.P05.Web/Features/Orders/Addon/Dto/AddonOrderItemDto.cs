@@ -9,6 +9,6 @@ namespace FA21.P05.Web.Features.Orders.Addon.Dto
     {
         public int Id { get; set; }
         public int AddonItemId { get; set; }
-        public decimal LineItemTotal { get; set; }
+        public decimal AddonItemPrice { get; set; }
     }
 }

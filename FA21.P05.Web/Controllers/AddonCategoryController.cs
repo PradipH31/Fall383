@@ -8,23 +8,24 @@ using FA21.P05.Web.Features.MenuItems;
 using FA21.P05.Web.Features.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FA21.P05.Web.Features.AddonItems;
 
 namespace FA21.P05.Web.Controllers
 {
     [ApiController]
-    [Route("api/menu-categories")]
-    public class MenuCategoryController : ControllerBase
+    [Route("api/addon-categories")]
+    public class AddonCategoryController : ControllerBase
     {
         private readonly DataContext dataContext;
 
-        public MenuCategoryController(DataContext dataContext)
+        public AddonCategoryController(DataContext dataContext)
         {
             this.dataContext = dataContext;
         }
 
-        private static Expression<Func<MenuCategory, MenuCategoryDto>> MapDto()
+        private static Expression<Func<AddonCategory, AddonCategoryDto>> MapDto()
         {
-            return x => new MenuCategoryDto
+            return x => new AddonCategoryDto
             {
                 Id = x.Id,
                 Name = x.Name
@@ -32,22 +33,22 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<MenuCategoryDto>> Get()
+        public ActionResult<IEnumerable<AddonCategoryDto>> Get()
         {
             return GetDtos().ToList();
         }
 
-        private IQueryable<MenuCategoryDto> GetDtos()
+        private IQueryable<AddonCategoryDto> GetDtos()
         {
-            return dataContext.Set<MenuCategory>().Select(MapDto());
+            return dataContext.Set<AddonCategory>().Select(MapDto());
         }
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<MenuCategoryDto> GetById(int id)
+        public ActionResult<AddonCategoryDto> GetById(int id)
         {
             var result = dataContext
-                .Set<MenuCategory>()
+                .Set<AddonCategory>()
                 .Select(MapDtoWithMenuItems()
                 )
                 .FirstOrDefault(x => x.Id == id);
@@ -59,19 +60,18 @@ namespace FA21.P05.Web.Controllers
             return result;
         }
 
-        private static Expression<Func<MenuCategory, MenuCategoryDto>> MapDtoWithMenuItems()
+        private static Expression<Func<AddonCategory, AddonCategoryDto>> MapDtoWithMenuItems()
         {
-            return x => new MenuCategoryDto
+            return x => new AddonCategoryDto
             {
                 Id = x.Id,
                 Name = x.Name,
-                MenuItems = x.MenuItems.Select(y => new MenuItemDto
+                AddonItemDtos = x.AddonItems.Select(y => new AddonItemDto
                 {
                     Id = y.Id,
                     Name = y.Name,
-                    MenuCategoryId = y.MenuCategoryId,
+                    AddonCategoryId = y.AddonCategoryId,
                     Description = y.Description,
-                    IsSpecial = y.IsSpecial,
                     Price = y.Price
                 })
             };
@@ -80,10 +80,10 @@ namespace FA21.P05.Web.Controllers
         [HttpPut]
         [Authorize(Roles = RoleNames.StaffOrAdmin)]
         [Route("{id}")]
-        public ActionResult<MenuCategoryDto> Update(int id, MenuCategoryDto item)
+        public ActionResult<AddonCategoryDto> Update(int id, AddonCategoryDto item)
         {
             var entity = dataContext
-                .Set<MenuCategory>()
+                .Set<AddonCategory>()
                 .FirstOrDefault(x => x.Id == id);
             if (entity == null)
             {
@@ -98,7 +98,7 @@ namespace FA21.P05.Web.Controllers
             entity.Name = item.Name;
             dataContext.SaveChanges();
 
-            return new MenuCategoryDto
+            return new AddonCategoryDto
             {
                 Id = entity.Id,
                 Name = entity.Name
@@ -107,7 +107,7 @@ namespace FA21.P05.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = RoleNames.StaffOrAdmin)]
-        public ActionResult<MenuCategoryDto> Create(MenuCategoryDto Category)
+        public ActionResult<AddonCategoryDto> Create(AddonCategoryDto Category)
         {
             if (Category.Name.Equals(""))
             {
@@ -115,8 +115,8 @@ namespace FA21.P05.Web.Controllers
             }
 
             var item = dataContext
-                .Set<MenuCategory>()
-                .Add(new MenuCategory
+                .Set<AddonCategory>()
+                .Add(new AddonCategory
                 {
                     Name = Category.Name
                 });
@@ -133,7 +133,7 @@ namespace FA21.P05.Web.Controllers
         public ActionResult Delete(int id)
         {
             var entity = dataContext
-                .Set<MenuCategory>()
+                .Set<AddonCategory>()
                 .FirstOrDefault(x => x.Id == id);
             if (entity == null)
             {
@@ -142,14 +142,14 @@ namespace FA21.P05.Web.Controllers
 
             var anyItemWithCategory = dataContext
                 .Set<MenuItem>()
-                .Any(x => x.MenuCategoryId == id);
+                .Any(x => x.AddonCategoryId == id);
 
             if (anyItemWithCategory)
             {
                 return BadRequest();
             }
 
-            dataContext.Set<MenuCategory>().Remove(entity);
+            dataContext.Set<AddonCategory>().Remove(entity);
             dataContext.SaveChanges();
 
             return Ok();
