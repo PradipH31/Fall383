@@ -185,7 +185,6 @@ namespace FA21.P05.Tests.Web
                 Description = "asd",
                 Name = "asd",
                 Price = 1,
-                CategoryId = 1
             };
 
             var webClient = context.GetStandardWebClient();

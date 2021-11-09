@@ -4,53 +4,54 @@ using System.Linq;
 using System.Linq.Expressions;
 using FA21.P05.Web.Data;
 using FA21.P05.Web.Features.Identity;
-using FA21.P05.Web.Features.MenuItems;
+using FA21.P05.Web.Features.AddonItems;
 using FA21.P05.Web.Features.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FA21.P05.Web.Features.Orders.Addon;
 
 namespace FA21.P05.Web.Controllers
 {
     [ApiController]
-    [Route("api/menu-items")]
-    public class MenuItemController : ControllerBase
+    [Route("api/addon-items")]
+    public class AddonItemController : ControllerBase
     {
         private readonly DataContext dataContext;
 
-        public MenuItemController(DataContext dataContext)
+        public AddonItemController(DataContext dataContext)
         {
             this.dataContext = dataContext;
         }
 
-        private static Expression<Func<MenuItem, MenuItemDto>> MapDto()
+        private static Expression<Func<AddonItem, AddonItemDto>> MapDto()
         {
-            return x => new MenuItemDto
+            return x => new AddonItemDto
             {
                 Id = x.Id,
                 Price = x.Price,
                 Description = x.Description,
-                IsSpecial = x.IsSpecial,
                 Name = x.Name,
+                AddonCategoryId = x.AddonCategoryId
             };
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<MenuItemDto>> Get()
+        public ActionResult<IEnumerable<AddonItemDto>> Get()
         {
             return GetDtos().ToList();
         }
 
-        private IQueryable<MenuItemDto> GetDtos()
+        private IQueryable<AddonItemDto> GetDtos()
         {
-            return dataContext.Set<MenuItem>().Select(MapDto());
+            return dataContext.Set<AddonItem>().Select(MapDto());
         }
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<MenuItemDto> GetById(int id)
+        public ActionResult<AddonItemDto> GetById(int id)
         {
             var result = dataContext
-                .Set<MenuItem>()
+                .Set<AddonItem>()
                 .Select(MapDto())
                 .FirstOrDefault(x => x.Id == id);
             if (result == null)
@@ -64,10 +65,10 @@ namespace FA21.P05.Web.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize(Roles = RoleNames.StaffOrAdmin)]
-        public ActionResult<MenuItemDto> Update(int id, MenuItemDto item)
+        public ActionResult<AddonItemDto> Update(int id, AddonItemDto item)
         {
             var entity = dataContext
-                .Set<MenuItem>()
+                .Set<AddonItem>()
                 .FirstOrDefault(x => x.Id == id);
             if (entity == null)
             {
@@ -82,54 +83,42 @@ namespace FA21.P05.Web.Controllers
             entity.Price = item.Price;
             entity.Description = item.Description;
             entity.Name = item.Name;
-            entity.IsSpecial = item.IsSpecial;
+            entity.AddonCategoryId = item.AddonCategoryId;
             dataContext.SaveChanges();
 
-            return new MenuItemDto
+            return new AddonItemDto
             {
                 Id = entity.Id,
                 Price = entity.Price,
                 Description = entity.Description,
-                IsSpecial = entity.IsSpecial,
-                Name = entity.Name
+                Name = entity.Name,
+                AddonCategoryId = entity.AddonCategoryId
             };
-        }
-
-        [HttpGet]
-        [Route("specials")]
-        public ActionResult<IEnumerable<MenuItemDto>> GetSpecials()
-        {
-            var result = dataContext
-                .Set<MenuItem>()
-                .Where(x => x.IsSpecial)
-                .Select(MapDto())
-                .ToList();
-            return Ok(result);
         }
 
         [HttpPost]
         [Authorize(Roles = RoleNames.Admin)]
-        public ActionResult<MenuItemDto> Create(MenuItemDto menuItem)
+        public ActionResult<AddonItemDto> Create(AddonItemDto AddonItem)
         {
-            if (menuItem.Price <= 0)
+            if (AddonItem.Price <= 0)
             {
                 return BadRequest();
             }
 
             var item = dataContext
-                .Set<MenuItem>()
-                .Add(new MenuItem
+                .Set<AddonItem>()
+                .Add(new AddonItem
                 {
-                    Description = menuItem.Description,
-                    Price = menuItem.Price,
-                    IsSpecial = menuItem.IsSpecial,
-                    Name = menuItem.Name,
+                    Description = AddonItem.Description,
+                    Price = AddonItem.Price,
+                    Name = AddonItem.Name,
+                    AddonCategoryId = AddonItem.AddonCategoryId
                 });
 
             dataContext.SaveChanges();
-            menuItem.Id = item.Entity.Id;
+            AddonItem.Id = item.Entity.Id;
 
-            return CreatedAtAction(nameof(GetById), new { id = menuItem.Id }, menuItem);
+            return CreatedAtAction(nameof(GetById), new { id = AddonItem.Id }, AddonItem);
         }
 
         [HttpDelete]
@@ -138,7 +127,7 @@ namespace FA21.P05.Web.Controllers
         public ActionResult Delete(int id)
         {
             var entity = dataContext
-                .Set<MenuItem>()
+                .Set<AddonItem>()
                 .FirstOrDefault(x => x.Id == id);
             if (entity == null)
             {
@@ -146,15 +135,15 @@ namespace FA21.P05.Web.Controllers
             }
 
             var anyOrdersWithItem = dataContext
-                .Set<OrderItem>()
-                .Any(x => x.MenuItemId == id);
+                .Set<AddonOrderItem>()
+                .Any(x => x.AddonItemId == id);
 
             if (anyOrdersWithItem)
             {
                 return BadRequest();
             }
 
-            dataContext.Set<MenuItem>().Remove(entity);
+            dataContext.Set<AddonItem>().Remove(entity);
             dataContext.SaveChanges();
 
             return Ok();

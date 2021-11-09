@@ -1,10 +1,12 @@
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
-using FA21.P05.Web.Features.MenuItems.Categories;
+using FA21.P05.Web.Features.Categories;
 using FA21.P05.Web.Features.Orders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FA21.P05.Web.Features.AddonItems;
+using FA21.P05.Web.Features.Orders.Addon;
 
 namespace FA21.P05.Web.Data
 {
@@ -19,7 +21,7 @@ namespace FA21.P05.Web.Data
             base.OnModelCreating(modelBuilder);
 
             var userRole = modelBuilder.Entity<UserRole>();
-            userRole.HasKey(x => new {x.UserId, x.RoleId});
+            userRole.HasKey(x => new { x.UserId, x.RoleId });
 
             userRole.HasOne(x => x.Role)
                 .WithMany(x => x.Users)
@@ -35,7 +37,10 @@ namespace FA21.P05.Web.Data
             // you can also just manually configure these
             modelBuilder.Entity<Order>();
             modelBuilder.Entity<OrderItem>();
-            modelBuilder.Entity<Category>();
+            modelBuilder.Entity<MenuCategory>();
+            modelBuilder.Entity<AddonCategory>();
+            modelBuilder.Entity<AddonItem>();
+            modelBuilder.Entity<AddonOrderItem>();
         }
     }
 }

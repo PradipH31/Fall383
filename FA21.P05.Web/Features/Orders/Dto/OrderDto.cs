@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FA21.P05.Web.Features.Orders
+namespace FA21.P05.Web.Features.Orders.Dto
 {
     public class OrderDto
     {
