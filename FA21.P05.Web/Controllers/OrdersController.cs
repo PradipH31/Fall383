@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using FA21.P05.Web.Data;
+using FA21.P05.Web.Features.AddonItems;
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
 using FA21.P05.Web.Features.Orders;
+using FA21.P05.Web.Features.Orders.Addon;
+using FA21.P05.Web.Features.Orders.Addon.Dto;
 using FA21.P05.Web.Features.Orders.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +42,12 @@ namespace FA21.P05.Web.Controllers
                     LineItemQuantity = y.LineItemQuantity,
                     LineItemTotal = y.LineItemTotal,
                     MenuItemId = y.MenuItemId,
-                    AddonOrderId = y.AddonOrderId
+                    AddonOrderItems = y.AddonOrderItems.Select(z => new AddonOrderItemDto
+                    {
+                        AddonItemId = z.AddonItemId,
+                        Id = z.Id,
+                        LineItemTotal = z.LineItemTotal
+                    })
                 }),
             };
         }
@@ -69,7 +78,6 @@ namespace FA21.P05.Web.Controllers
             };
 
             var matchingIds = create.OrderItems.Select(x => x.MenuItemId);
-
             var relatedMenuItems = dataContext
                 .Set<MenuItem>()
                 .Where(x => matchingIds.Contains(x.Id))
@@ -83,13 +91,15 @@ namespace FA21.P05.Web.Controllers
                     return BadRequest();
                 }
 
-                var orderItem = new OrderItem
+                OrderItem orderItem = new OrderItem
                 {
                     LineItemPrice = menuItem.Price,
                     LineItemQuantity = item.LineItemQuantity,
                     LineItemTotal = menuItem.Price * item.LineItemQuantity,
-                    MenuItemId = menuItem.Id
+                    MenuItemId = menuItem.Id,
+
                 };
+                IncludeAddonToMenuItem(item, menuItem, orderItem);
                 createdOrder.OrderItems.Add(orderItem);
             }
 
@@ -108,11 +118,39 @@ namespace FA21.P05.Web.Controllers
                     LineItemPrice = y.LineItemPrice,
                     LineItemQuantity = y.LineItemQuantity,
                     LineItemTotal = y.LineItemTotal,
-                    MenuItemId = y.MenuItemId
+                    MenuItemId = y.MenuItemId,
+                    AddonOrderItems = y.AddonOrderItems.Select(a => new AddonOrderItemDto
+                    {
+                        Id = a.Id,
+                        AddonItemId = a.AddonItemId,
+                        LineItemTotal = a.LineItemTotal
+                    })
                 })
             };
 
             return CreatedAtAction(nameof(GetById), new { id = createdOrder.Id }, dto);
+        }
+
+        private void IncludeAddonToMenuItem(CreateOrderItemDto item, MenuItem menuItem, OrderItem orderItem)
+        {
+            var matchingAddonIds = item.AddonOrderItemsDto.Select(x => x.AddonItemId);
+            var relatedAddonItems = dataContext
+                .Set<AddonItem>()
+                .Where(x => matchingAddonIds.Contains(x.Id))
+                .ToArray();
+            if (relatedAddonItems.Any())
+            {
+                foreach (var createAddonOrderItemDto in item.AddonOrderItemsDto)
+                {
+                    var addonItem = relatedAddonItems.FirstOrDefault(y => y.Id == createAddonOrderItemDto.AddonItemId);
+                    menuItem.Price = menuItem.Price + addonItem.Price;
+                    orderItem.AddonOrderItems.Add(new AddonOrderItem
+                    {
+                        AddonItemId = addonItem.Id,
+                        LineItemTotal = addonItem.Price,
+                    });
+                }
+            }
         }
 
         [HttpPut("{id}/cancel")]

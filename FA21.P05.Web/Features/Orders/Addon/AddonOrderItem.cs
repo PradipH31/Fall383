@@ -12,7 +12,7 @@ namespace FA21.P05.Web.Features.Orders.Addon
         public decimal LineItemTotal { get; set; }
         public int AddonItemId { get; set; }
         public virtual AddonItem AddonItem { get; set; }
-        public int AddonOrderId { get; set; }
-        public virtual AddonOrder AddonOrder { get; set; }
+        public int OrderItemId { get; set; }
+        public virtual OrderItem Order { get; set; }
     }
 }
