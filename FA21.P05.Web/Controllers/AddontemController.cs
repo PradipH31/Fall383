@@ -100,11 +100,6 @@ namespace FA21.P05.Web.Controllers
         [Authorize(Roles = RoleNames.Admin)]
         public ActionResult<AddonItemDto> Create(AddonItemDto AddonItem)
         {
-            if (AddonItem.Price <= 0)
-            {
-                return BadRequest();
-            }
-
             var item = dataContext
                 .Set<AddonItem>()
                 .Add(new AddonItem
