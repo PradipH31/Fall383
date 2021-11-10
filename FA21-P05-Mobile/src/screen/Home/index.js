@@ -5,13 +5,18 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  FlatList,
+  Pressable,
+  Image,
 } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 
 import Header from "../../components/Header";
+import { filterTestData } from "../../global/testData";
 import Colors from "../theme/Colors";
 const index = () => {
   const [delivery, setDelivery] = useState(true);
+  const [indexCheck, setIndexCheck] = useState("0");
   return (
     <View style={styles.container}>
       <Header />
@@ -113,6 +118,46 @@ const index = () => {
         <View style={styles.textHeaderView}>
           <Text style={styles.textHeader}>Choose Category</Text>
         </View>
+        <View>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={filterTestData}
+            keyExtractor={(item) => item.id}
+            extraData={indexCheck}
+            renderItem={({ item, index }) => (
+              <Pressable
+                onPress={() => {
+                  setIndexCheck(item.id);
+                }}
+              >
+                <View
+                  style={
+                    indexCheck === item.id
+                      ? { ...styles.categorySelected }
+                      : { ...styles.categoryContainer }
+                  }
+                >
+                  <Image
+                    style={{ height: 50, width: 50, borderRadius: 25 }}
+                    source={item.image}
+                  />
+                  <View>
+                    <Text
+                      style={
+                        indexCheck === item.id
+                          ? { ...styles.categoryNameSelected }
+                          : { ...styles.categoryName }
+                      }
+                    >
+                      {item.name}
+                    </Text>
+                  </View>
+                </View>
+              </Pressable>
+            )}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -146,6 +191,38 @@ const styles = StyleSheet.create({
   textHeaderView: {
     backgroundColor: "#e9edf2",
     paddingVertical: 3,
+  },
+  categoryContainer: {
+    borderRadius: 25,
+    backgroundColor: Colors.whiteShade,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    width: 80,
+    margin: 10,
+    height: 100,
+  },
+  categorySelected: {
+    borderRadius: 25,
+    backgroundColor: Colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    width: 80,
+    margin: 10,
+    height: 100,
+  },
+  categoryName: {
+    fontWeight: "bold",
+    marginTop: 1,
+    fontSize: 12,
+    color: Colors.primary,
+  },
+  categoryNameSelected: {
+    fontWeight: "bold",
+    marginTop: 1,
+    fontSize: 12,
+    color: Colors.whiteShade,
   },
 });
 
