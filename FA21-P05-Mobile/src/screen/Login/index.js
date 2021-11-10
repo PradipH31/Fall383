@@ -22,13 +22,13 @@ const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const signIn = () => {
-    if (username === undefined || username.length < 10) {
-      Alert.alert("Please Enter a Username");
-    } else if (password === undefined || password.length < 6) {
-      Alert.alert("Please Enter a Valid Password");
-    } else {
-      Alert.alert("Login Button Triggered.");
-    }
+    // if (username === undefined || username.length < 10) {
+    //   Alert.alert("Please Enter a Username");
+    // } else if (password === undefined || password.length < 6) {
+    //   Alert.alert("Please Enter a Valid Password");
+    // } else {
+    navigation.navigate("Home");
+    //}
   };
 
   return (
