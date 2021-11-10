@@ -8,12 +8,17 @@ import {
   FlatList,
   Pressable,
   Image,
+  Dimensions,
 } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 
+import Card from "../../components/Card";
+
 import Header from "../../components/Header";
-import { filterTestData } from "../../global/testData";
+import { filterTestData, testSpecialsItemsData } from "../../global/testData";
 import Colors from "../theme/Colors";
+
+const SCREEN_WIDTH = Dimensions.get("window").width;
 const index = () => {
   const [delivery, setDelivery] = useState(true);
   const [indexCheck, setIndexCheck] = useState("0");
@@ -60,32 +65,9 @@ const index = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            marginHorizontal: 10,
-            marginVertical: 5,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              backgroundColor: "#e0e0e0",
-              borderRadius: 13,
-              paddingVertical: 4,
-              justifyContent: "space-between",
-              paddingHorizontal: 30,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingLeft: 10,
-              }}
-            >
+        <View style={styles.addressContainer}>
+          <View style={styles.addressSubContainer}>
+            <View style={styles.addressTextView}>
               <Icon
                 type="material-community"
                 name="map-marker"
@@ -94,17 +76,7 @@ const index = () => {
               />
               <Text style={{ marginLeft: 5 }}> 500 W University Ave</Text>
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: 20,
-                marginRight: 20,
-                backgroundColor: Colors.white,
-                borderRadius: 10,
-                paddingHorizontal: 5,
-              }}
-            >
+            <View style={styles.addressTimeView}>
               <Icon
                 type="material-community"
                 name="clock-time-nine"
@@ -158,6 +130,29 @@ const index = () => {
             )}
           />
         </View>
+        <View style={styles.textHeaderView}>
+          <Text style={styles.textHeader}>Specials</Text>
+        </View>
+        <View>
+          <FlatList
+            style={{ marginTop: 10, marginBottom: 10 }}
+            horizontal={true}
+            data={testSpecialsItemsData}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View style={{ marginRight: 10 }}>
+                <Card
+                  screenWidth={SCREEN_WIDTH * 0.6}
+                  images={item.images}
+                  itemName={item.itemName}
+                  price={item.price}
+                  deliveryTime={item.deliveryTime}
+                />
+              </View>
+            )}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -191,6 +186,35 @@ const styles = StyleSheet.create({
   textHeaderView: {
     backgroundColor: "#e9edf2",
     paddingVertical: 3,
+  },
+  addressContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 10,
+    marginVertical: 5,
+  },
+  addressSubContainer: {
+    flexDirection: "row",
+    backgroundColor: "#e0e0e0",
+    borderRadius: 13,
+    paddingVertical: 4,
+    justifyContent: "space-between",
+    paddingHorizontal: 30,
+  },
+  addressTextView: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+  },
+  addressTimeView: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    paddingHorizontal: 5,
   },
   categoryContainer: {
     borderRadius: 25,
