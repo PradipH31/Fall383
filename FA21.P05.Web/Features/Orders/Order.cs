@@ -10,6 +10,8 @@ namespace FA21.P05.Web.Features.Orders
         public DateTimeOffset Placed { get; set; }
         public DateTimeOffset? Started { get; set; }
         public DateTimeOffset? Canceled { get; set; }
+        public bool IsDelivery { get; set; }
+        public string? DeliveryAddress { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }

@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using FA21.P05.Web.Data;
+using FA21.P05.Web.Features.AddonItems;
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
 using FA21.P05.Web.Features.Orders;
+using FA21.P05.Web.Features.Orders.Addon;
+using FA21.P05.Web.Features.Orders.Addon.Dto;
+using FA21.P05.Web.Features.Orders.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,11 +38,19 @@ namespace FA21.P05.Web.Controllers
                 OrderItems = x.OrderItems.Select(y => new OrderItemDto
                 {
                     Id = y.Id,
-                    LineItemPrice = y.LineItemPrice,
-                    LineItemQuantity = y.LineItemQuantity,
+                    MenuItemPrice = y.MenuItemPrice,
+                    MenuItemQuantity = y.MenuItemQuantity,
+                    MenuItemTotal = y.MenuItemTotal,
+                    MenuItemId = y.MenuItemId,
+                    AddonItemTotal = y.AddonItemTotal,
                     LineItemTotal = y.LineItemTotal,
-                    MenuItemId = y.MenuItemId
-                })
+                    AddonOrderItems = y.AddonOrderItems.Select(z => new AddonOrderItemDto
+                    {
+                        AddonItemId = z.AddonItemId,
+                        Id = z.Id,
+                        AddonItemPrice = z.AddonItemPrice
+                    })
+                }),
             };
         }
 
@@ -67,7 +80,6 @@ namespace FA21.P05.Web.Controllers
             };
 
             var matchingIds = create.OrderItems.Select(x => x.MenuItemId);
-
             var relatedMenuItems = dataContext
                 .Set<MenuItem>()
                 .Where(x => matchingIds.Contains(x.Id))
@@ -81,14 +93,34 @@ namespace FA21.P05.Web.Controllers
                     return BadRequest();
                 }
 
-                var orderItem = new OrderItem 
+                OrderItem orderItem = new OrderItem
                 {
-                    LineItemPrice = menuItem.Price,
-                    LineItemQuantity = item.LineItemQuantity,
-                    LineItemTotal = menuItem.Price * item.LineItemQuantity,
+                    MenuItemPrice = menuItem.Price,
+                    MenuItemQuantity = item.MenuItemQuantity,
+                    MenuItemTotal = menuItem.Price * item.MenuItemQuantity,
                     MenuItemId = menuItem.Id
                 };
+                var matchingAddonIds = item.AddonOrderItemsDto.Select(x => x.AddonItemId);
+                var relatedAddonItems = dataContext
+                    .Set<AddonItem>()
+                    .Where(x => matchingAddonIds.Contains(x.Id))
+                    .ToArray();
+                if (relatedAddonItems.Any())
+                {
+                    foreach (var createAddonOrderItemDto in item.AddonOrderItemsDto)
+                    {
+                        var addonItem = relatedAddonItems.FirstOrDefault(y => y.Id == createAddonOrderItemDto.AddonItemId);
+                        orderItem.AddonItemTotal += addonItem.Price;
+                        orderItem.AddonOrderItems.Add(new AddonOrderItem
+                        {
+                            AddonItemId = addonItem.Id,
+                            AddonItemPrice = addonItem.Price,
+                        });
+                    }
+                }
+                orderItem.LineItemTotal = orderItem.MenuItemTotal + orderItem.AddonItemTotal;
                 createdOrder.OrderItems.Add(orderItem);
+                Console.WriteLine(orderItem.AddonItemTotal);
             }
 
             createdOrder.OrderTotal = createdOrder.OrderItems.Sum(x => x.LineItemTotal);
@@ -98,20 +130,29 @@ namespace FA21.P05.Web.Controllers
             var dto = new OrderDto()
             {
                 Id = createdOrder.Id,
-                 OrderTotal = createdOrder.OrderTotal,
-                 Placed = createdOrder.Placed,
-                 OrderItems = createdOrder.OrderItems.Select(y => new OrderItemDto
-                 {
-                     Id = y.Id,
-                     LineItemPrice = y.LineItemPrice,
-                     LineItemQuantity = y.LineItemQuantity,
-                     LineItemTotal = y.LineItemTotal,
-                     MenuItemId = y.MenuItemId
-                 })
+                OrderTotal = createdOrder.OrderTotal,
+                Placed = createdOrder.Placed,
+                OrderItems = createdOrder.OrderItems.Select(y => new OrderItemDto
+                {
+                    Id = y.Id,
+                    MenuItemPrice = y.MenuItemPrice,
+                    MenuItemQuantity = y.MenuItemQuantity,
+                    MenuItemTotal = y.MenuItemTotal,
+                    MenuItemId = y.MenuItemId,
+                    AddonOrderItems = y.AddonOrderItems.Select(a => new AddonOrderItemDto
+                    {
+                        Id = a.Id,
+                        AddonItemId = a.AddonItemId,
+                        AddonItemPrice = a.AddonItemPrice
+                    }),
+                    AddonItemTotal = y.AddonItemTotal,
+                    LineItemTotal = y.LineItemTotal
+                })
             };
 
             return CreatedAtAction(nameof(GetById), new { id = createdOrder.Id }, dto);
         }
+
 
         [HttpPut("{id}/cancel")]
         public ActionResult<OrderDto> Cancel(int id)
