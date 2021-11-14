@@ -4,76 +4,22 @@ using FA21.P05.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FA21.P05.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211107193125_AddOptionsToMenuItem")]
+    partial class AddOptionsToMenuItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("FA21.P05.Web.Features.AddonItems.AddonItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AddonCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddonCategoryId");
-
-                    b.ToTable("AddonItem");
-                });
-
-            modelBuilder.Entity("FA21.P05.Web.Features.Categories.AddonCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AddonCategory");
-                });
-
-            modelBuilder.Entity("FA21.P05.Web.Features.Categories.MenuCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MenuCategory");
-                });
 
             modelBuilder.Entity("FA21.P05.Web.Features.Identity.Role", b =>
                 {
@@ -186,6 +132,24 @@ namespace FA21.P05.Web.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.Categories.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsAddon")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.MenuItem", b =>
                 {
                     b.Property<int>("Id")
@@ -193,20 +157,17 @@ namespace FA21.P05.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddonCategoryId")
+                    b.Property<int?>("AddonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageLink")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsSpecial")
                         .HasColumnType("bit");
-
-                    b.Property<int>("MenuCategoryId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasMaxLength(120)
@@ -217,36 +178,9 @@ namespace FA21.P05.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddonCategoryId");
-
-                    b.HasIndex("MenuCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("MenuItem");
-                });
-
-            modelBuilder.Entity("FA21.P05.Web.Features.Orders.Addon.AddonOrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AddonItemId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("AddonItemPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("OrderItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddonItemId");
-
-                    b.HasIndex("OrderItemId");
-
-                    b.ToTable("AddonOrderItem");
                 });
 
             modelBuilder.Entity("FA21.P05.Web.Features.Orders.Order", b =>
@@ -286,23 +220,17 @@ namespace FA21.P05.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AddonItemTotal")
+                    b.Property<decimal>("LineItemPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("LineItemQuantity")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("LineItemTotal")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("MenuItemId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("MenuItemPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("MenuItemQuantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("MenuItemTotal")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -402,17 +330,6 @@ namespace FA21.P05.Web.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FA21.P05.Web.Features.AddonItems.AddonItem", b =>
-                {
-                    b.HasOne("FA21.P05.Web.Features.Categories.AddonCategory", "AddonCategory")
-                        .WithMany("AddonItems")
-                        .HasForeignKey("AddonCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AddonCategory");
-                });
-
             modelBuilder.Entity("FA21.P05.Web.Features.Identity.UserRole", b =>
                 {
                     b.HasOne("FA21.P05.Web.Features.Identity.Role", "Role")
@@ -434,40 +351,13 @@ namespace FA21.P05.Web.Migrations
 
             modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.MenuItem", b =>
                 {
-                    b.HasOne("FA21.P05.Web.Features.Categories.AddonCategory", "AddonCategory")
+                    b.HasOne("FA21.P05.Web.Features.MenuItems.Categories.Category", "Category")
                         .WithMany("MenuItems")
-                        .HasForeignKey("AddonCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("FA21.P05.Web.Features.Categories.MenuCategory", "Category")
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AddonCategory");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("FA21.P05.Web.Features.Orders.Addon.AddonOrderItem", b =>
-                {
-                    b.HasOne("FA21.P05.Web.Features.AddonItems.AddonItem", "AddonItem")
-                        .WithMany()
-                        .HasForeignKey("AddonItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FA21.P05.Web.Features.Orders.OrderItem", "Order")
-                        .WithMany("AddonOrderItems")
-                        .HasForeignKey("OrderItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AddonItem");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("FA21.P05.Web.Features.Orders.OrderItem", b =>
@@ -525,18 +415,6 @@ namespace FA21.P05.Web.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FA21.P05.Web.Features.Categories.AddonCategory", b =>
-                {
-                    b.Navigation("AddonItems");
-
-                    b.Navigation("MenuItems");
-                });
-
-            modelBuilder.Entity("FA21.P05.Web.Features.Categories.MenuCategory", b =>
-                {
-                    b.Navigation("MenuItems");
-                });
-
             modelBuilder.Entity("FA21.P05.Web.Features.Identity.Role", b =>
                 {
                     b.Navigation("Users");
@@ -547,6 +425,11 @@ namespace FA21.P05.Web.Migrations
                     b.Navigation("Roles");
                 });
 
+            modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.Categories.Category", b =>
+                {
+                    b.Navigation("MenuItems");
+                });
+
             modelBuilder.Entity("FA21.P05.Web.Features.MenuItems.MenuItem", b =>
                 {
                     b.Navigation("InOrders");
@@ -555,11 +438,6 @@ namespace FA21.P05.Web.Migrations
             modelBuilder.Entity("FA21.P05.Web.Features.Orders.Order", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("FA21.P05.Web.Features.Orders.OrderItem", b =>
-                {
-                    b.Navigation("AddonOrderItems");
                 });
 #pragma warning restore 612, 618
         }
