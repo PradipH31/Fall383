@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using FA21.P05.Web.Data;
+using FA21.P05.Web.Features.AddonItems;
+using FA21.P05.Web.Features.Categories;
 using FA21.P05.Web.Features.Identity;
 using FA21.P05.Web.Features.MenuItems;
 using FA21.P05.Web.Features.Orders;
@@ -31,6 +33,36 @@ namespace FA21.P05.Web.Controllers
                 Description = x.Description,
                 IsSpecial = x.IsSpecial,
                 Name = x.Name,
+                AddonCategoryId = x.AddonCategoryId,
+                MenuCategoryId = x.MenuCategoryId,
+                ImageLink = x.ImageLink
+            };
+        }
+
+        private static Expression<Func<MenuItem, MenuItemDto>> MapDtoWithAddons()
+        {
+            return x => new MenuItemDto
+            {
+                Id = x.Id,
+                Price = x.Price,
+                Description = x.Description,
+                IsSpecial = x.IsSpecial,
+                Name = x.Name,
+                ImageLink = x.ImageLink,
+                AddonCategoryId = x.AddonCategoryId,
+                MenuCategoryId = x.MenuCategoryId,
+                AddonCategory = x.AddonCategoryId == 1 ? null : new AddonCategoryDto
+                {
+                    AddonItemDtos = x.AddonCategory.AddonItems.Select(y => new AddonItemDto
+                    {
+                        ImageLink = y.ImageLink,
+                        AddonCategoryId = y.AddonCategoryId,
+                        Id = y.Id,
+                        Name = y.Name,
+                        Price = y.Price
+                    }),
+                    Id = x.AddonCategoryId,
+                }
             };
         }
 
@@ -51,7 +83,7 @@ namespace FA21.P05.Web.Controllers
         {
             var result = dataContext
                 .Set<MenuItem>()
-                .Select(MapDto())
+                .Select(MapDtoWithAddons())
                 .FirstOrDefault(x => x.Id == id);
             if (result == null)
             {
@@ -83,6 +115,9 @@ namespace FA21.P05.Web.Controllers
             entity.Description = item.Description;
             entity.Name = item.Name;
             entity.IsSpecial = item.IsSpecial;
+            entity.AddonCategoryId = item.AddonCategoryId;
+            entity.ImageLink = item.ImageLink;
+            entity.MenuCategoryId = item.MenuCategoryId;
             dataContext.SaveChanges();
 
             return new MenuItemDto
@@ -91,7 +126,10 @@ namespace FA21.P05.Web.Controllers
                 Price = entity.Price,
                 Description = entity.Description,
                 IsSpecial = entity.IsSpecial,
-                Name = entity.Name
+                AddonCategoryId = entity.AddonCategoryId,
+                ImageLink = entity.ImageLink,
+                Name = entity.Name,
+                MenuCategoryId = entity.MenuCategoryId
             };
         }
 
@@ -124,6 +162,9 @@ namespace FA21.P05.Web.Controllers
                     Price = menuItem.Price,
                     IsSpecial = menuItem.IsSpecial,
                     Name = menuItem.Name,
+                    ImageLink = menuItem.ImageLink,
+                    AddonCategoryId = menuItem.AddonCategoryId,
+                    MenuCategoryId = menuItem.MenuCategoryId
                 });
 
             dataContext.SaveChanges();

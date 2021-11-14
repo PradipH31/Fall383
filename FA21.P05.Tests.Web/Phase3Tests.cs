@@ -533,7 +533,6 @@ namespace FA21.P05.Tests.Web
             var resultDto = await httpResponse.Content.ReadAsJsonAsync<List<AddonItemDto>>();
             resultDto.Should().HaveCountGreaterThan(2, "we expect at least 3 records");
             resultDto.All(x => !string.IsNullOrWhiteSpace(x.Name)).Should().BeTrue("we expect all menu items to have names");
-            resultDto.All(x => !string.IsNullOrWhiteSpace(x.Description)).Should().BeTrue("we expect all menu items to have descriptions");
             resultDto.All(x => x.Price > 0).Should().BeTrue("we expect all menu items to have non zero/non negative prices");
             resultDto.All(x => x.Id > 0).Should().BeTrue("we expect all menu items to have an id");
             var ids = resultDto.Select(x => x.Id).ToArray();

@@ -72,7 +72,9 @@ namespace FA21.P05.Web.Controllers
                     MenuCategoryId = y.MenuCategoryId,
                     Description = y.Description,
                     IsSpecial = y.IsSpecial,
-                    Price = y.Price
+                    Price = y.Price,
+                    AddonCategoryId = y.AddonCategoryId,
+                    ImageLink = y.ImageLink
                 })
             };
         }

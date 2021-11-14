@@ -29,9 +29,9 @@ namespace FA21.P05.Web.Controllers
             {
                 Id = x.Id,
                 Price = x.Price,
-                Description = x.Description,
                 Name = x.Name,
-                AddonCategoryId = x.AddonCategoryId
+                AddonCategoryId = x.AddonCategoryId,
+                ImageLink = x.ImageLink
             };
         }
 
@@ -81,18 +81,18 @@ namespace FA21.P05.Web.Controllers
             }
 
             entity.Price = item.Price;
-            entity.Description = item.Description;
             entity.Name = item.Name;
             entity.AddonCategoryId = item.AddonCategoryId;
+            entity.ImageLink = item.ImageLink;
             dataContext.SaveChanges();
 
             return new AddonItemDto
             {
                 Id = entity.Id,
                 Price = entity.Price,
-                Description = entity.Description,
                 Name = entity.Name,
-                AddonCategoryId = entity.AddonCategoryId
+                AddonCategoryId = entity.AddonCategoryId,
+                ImageLink = entity.ImageLink
             };
         }
 
@@ -104,10 +104,10 @@ namespace FA21.P05.Web.Controllers
                 .Set<AddonItem>()
                 .Add(new AddonItem
                 {
-                    Description = AddonItem.Description,
                     Price = AddonItem.Price,
                     Name = AddonItem.Name,
-                    AddonCategoryId = AddonItem.AddonCategoryId
+                    AddonCategoryId = AddonItem.AddonCategoryId,
+                    ImageLink = AddonItem.ImageLink
                 });
 
             dataContext.SaveChanges();

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using FA21.P05.Web.Data;
 using FA21.P05.Web.Features.Identity;
-using FA21.P05.Web.Features.MenuItems;
+using FA21.P05.Web.Features.AddonItems;
 using FA21.P05.Web.Features.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using FA21.P05.Web.Features.AddonItems;
 
 namespace FA21.P05.Web.Controllers
 {
@@ -49,7 +48,7 @@ namespace FA21.P05.Web.Controllers
         {
             var result = dataContext
                 .Set<AddonCategory>()
-                .Select(MapDtoWithMenuItems()
+                .Select(MapDtoWithAddonItems()
                 )
                 .FirstOrDefault(x => x.Id == id);
             if (result == null)
@@ -60,7 +59,7 @@ namespace FA21.P05.Web.Controllers
             return result;
         }
 
-        private static Expression<Func<AddonCategory, AddonCategoryDto>> MapDtoWithMenuItems()
+        private static Expression<Func<AddonCategory, AddonCategoryDto>> MapDtoWithAddonItems()
         {
             return x => new AddonCategoryDto
             {
@@ -71,8 +70,8 @@ namespace FA21.P05.Web.Controllers
                     Id = y.Id,
                     Name = y.Name,
                     AddonCategoryId = y.AddonCategoryId,
-                    Description = y.Description,
-                    Price = y.Price
+                    Price = y.Price,
+                    ImageLink = y.ImageLink
                 })
             };
         }
@@ -141,7 +140,7 @@ namespace FA21.P05.Web.Controllers
             }
 
             var anyItemWithCategory = dataContext
-                .Set<MenuItem>()
+                .Set<AddonItem>()
                 .Any(x => x.AddonCategoryId == id);
 
             if (anyItemWithCategory)

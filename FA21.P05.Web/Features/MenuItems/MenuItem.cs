@@ -14,9 +14,10 @@ namespace FA21.P05.Web.Features.MenuItems
         public string Description { get; set; }
         public decimal Price { get; set; }
         public bool IsSpecial { get; set; }
+        public string ImageLink { get; set; }
         public int MenuCategoryId { get; set; }
         public virtual MenuCategory Category { get; set; }
-        public int? AddonCategoryId { get; set; }
+        public int AddonCategoryId { get; set; }
         public virtual AddonCategory AddonCategory { get; set; }
         public virtual ICollection<OrderItem> InOrders { get; set; } = new List<OrderItem>();
     }
