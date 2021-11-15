@@ -10,6 +10,7 @@ import Feature from "./components/features/Feature";
 import DownloadApp from "./components/downloadapp/Downloadapp";
 import Menu from "./components/menu/Menu";
 import Specials from "./components/special/Specials";
+import AdminDashBoard from "./pages/admindashboard/AdminDashBoard";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/orders" exact component={Order} />
               <Route path="/contact" exact component={Contact} />
               */}
+        <Route path="/admin/dashboard" exact component={AdminDashBoard} />
 
         <Route path={"*"}>
           <PageNotFound />

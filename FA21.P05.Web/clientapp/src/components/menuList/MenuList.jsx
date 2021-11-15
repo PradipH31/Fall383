@@ -15,7 +15,7 @@ const MenuList = () => {
 
     const [items, setItems] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [limit, setLimit] = useState(5);
+    const [limit, setLimit] = useState(6);
     const [error, setError] = useState("")
     const init = () => {
         return getCategories().then(data => {
