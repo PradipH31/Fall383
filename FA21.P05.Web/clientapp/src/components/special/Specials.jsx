@@ -33,7 +33,6 @@ const Specials = () => {
         return getSpecialItems()
             .then((data) => {
                 setSpecialItems(data);
-                console.log(data);
             })
             .catch((err) => console.log(err));
     };
@@ -46,9 +45,6 @@ const Specials = () => {
         <div style={{ margin: "10%" }} className="specials">
 
             <h2 className="specials-title">Specials this Week</h2>
-            {/* <span>
-                {JSON.stringify(specialItems)}
-            </span> */}
             <Slider prevArrow={<PreviousBtn />}
                 nextArrow={<NextBtn />
                 }
