@@ -11,6 +11,7 @@ import DownloadApp from "./components/downloadapp/Downloadapp";
 import Menu from "./components/menu/Menu";
 import Specials from "./components/special/Specials";
 import AdminDashBoard from "./pages/admindashboard/AdminDashBoard";
+import AddCategory from "./admin/AddCategory/AddCategory";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/contact" exact component={Contact} />
               */}
         <Route path="/admin/dashboard" exact component={AdminDashBoard} />
+        <Route path="/create/category" exact component={AddCategory} />
 
         <Route path={"*"}>
           <PageNotFound />
