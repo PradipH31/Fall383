@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Menu.css";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { getMenuItems } from "../actions/menuitems";
+import { getSpecialItems } from "../actions/menuitems";
 import { useEffect, useState } from "react";
 import Card from "../card/Card";
 import MenuList from "../menuList/MenuList";
@@ -29,8 +29,8 @@ const NextBtn = (props) => {
 const Menu = () => {
     const [items, setItems] = useState([]);
 
-    const getItems = () => {
-        return getMenuItems()
+    const getSpecials = () => {
+        return getSpecialItems()
             .then((data) => {
                 setItems(data);
                 console.log(data);
@@ -40,18 +40,15 @@ const Menu = () => {
 
 
     useEffect(() => {
-        getItems();
+        getSpecials();
     }, []);
 
     return (
-        <div style={{ margin: "10%" }} className="specials">
+        <div style={{ margin: "5%" }} className="specials">
             <h2 className="specials-title">Menu List</h2>
             <MenuList />
-            <br />
+            <hr className="center-star" data-content="★" />
             <h2 className="specials-title">Specials this Week</h2>
-            {/* <span>
-                {JSON.stringify(items)}
-            </span> */}
             <Slider prevArrow={<PreviousBtn />}
                 nextArrow={<NextBtn />
                 }
