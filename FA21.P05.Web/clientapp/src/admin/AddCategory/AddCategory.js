@@ -6,18 +6,18 @@ import { Link } from "react-router-dom";
 
 const AddCategory = () => {
   const [name, setName] = useState("");
-  const [error, setError] = useState("");
-  const [succces, setSuccess] = useState(false);
+  //   const [error, setError] = useState("");
+  //   const [succces, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setError("");
+    // setError("");
     setName(e.target.value);
   };
 
   const submitForm = (e) => {
     e.preventDefault();
-    setError("");
-    setSuccess(true);
+    // setError("");
+    // setSuccess(true);
     toast.success(`Category ${name} has been created.`, {
       position: "top-right",
       autoClose: 5000,
