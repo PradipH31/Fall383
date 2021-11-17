@@ -27,7 +27,6 @@ const AddItem = () => {
     error: "",
     formData: "",
   });
-  const [isUploaded, setIsUploaded] = useState(false);
   const {
     name,
     description,
@@ -74,7 +73,6 @@ const AddItem = () => {
       name === "imageLink" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
     setValues({ ...values, [name]: value });
-    setIsUploaded(true);
   };
 
   const onSubmit = (event) => {
@@ -117,7 +115,7 @@ const AddItem = () => {
       <form className="mb-2" onSubmit={onSubmit}>
         <div className="form-group d-flex justify-content-center">
           <Avatar className="avatar">
-            <FontAwesomeIcon style={{ color: "#0755f0" }} icon={faUserCheck} />
+            <FontAwesomeIcon style={{ color: "#ab2402" }} icon={faUserCheck} />
           </Avatar>
         </div>
         <div className="form-group">
@@ -163,7 +161,6 @@ const AddItem = () => {
 
         <div className="form-group">
           <label className="text-muted">Category</label>
-          {/* {JSON.stringify(categories)} */}
           <select onChange={handleChange("category")} className="form-control">
             <option>Please Select One</option>
             {categories &&
