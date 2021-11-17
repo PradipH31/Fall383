@@ -108,7 +108,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.StaffOrAdmin)]
+        // [Authorize(Roles = RoleNames.StaffOrAdmin)]
         public ActionResult<MenuCategoryDto> Create(MenuCategoryDto Category)
         {
             if (Category.Name.Equals(""))
@@ -130,7 +130,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.Admin)]
+        // [Authorize(Roles = RoleNames.Admin)]
         [Route("{id}")]
         public ActionResult Delete(int id)
         {

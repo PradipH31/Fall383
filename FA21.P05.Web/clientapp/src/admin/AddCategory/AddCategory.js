@@ -3,29 +3,47 @@ import Layout from "../../core/Layout/Layout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { createCategory } from "../../core/apiCore";
 
 const AddCategory = () => {
   const [name, setName] = useState("");
-  //   const [error, setError] = useState("");
-  //   const [succces, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    // setError("");
     setName(e.target.value);
   };
 
   const submitForm = (e) => {
     e.preventDefault();
-    // setError("");
-    // setSuccess(true);
-    toast.success(`Category ${name} has been created.`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+    setSuccess(false);
+
+    createCategory({ name }).then((data) => {
+      if (data.error) {
+        setError(`${data.error}`);
+        toast.error(`${data.error}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        setError("");
+        setSuccess(true);
+        setName("");
+        toast.success(`Category ${name} has been created.`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     });
   };
 
@@ -41,6 +59,12 @@ const AddCategory = () => {
       </button>
     </>
   );
+
+  const showSuccess = () => {
+    if (success) {
+      return <h6 className="text-info">{name}</h6>;
+    }
+  };
 
   const newCategoryForm = () => {
     return (
@@ -79,7 +103,10 @@ const AddCategory = () => {
         description={`Good Day Admin, ready to add a category?`}
       >
         <div className="row">
-          <div className="col-md-8 offset-md-2">{newCategoryForm()}</div>
+          <div className="col-md-8 offset-md-2">
+            {showSuccess()}
+            {newCategoryForm()}
+          </div>
         </div>
       </Layout>
     </>
