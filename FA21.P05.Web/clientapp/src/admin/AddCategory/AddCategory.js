@@ -19,7 +19,7 @@ const AddCategory = () => {
     setSuccess(false);
 
     createCategory({ name }).then((data) => {
-      if (data.error) {
+      if (error) {
         setError(`${data.error}`);
         toast.error(`${data.error}`, {
           position: "top-right",
