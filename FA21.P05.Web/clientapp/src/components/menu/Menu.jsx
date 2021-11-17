@@ -46,7 +46,9 @@ const Menu = () => {
     return (
         <div style={{ margin: "5%" }} className="specials">
             <h2 className="specials-title">Menu List</h2>
-            <MenuList />
+            <div className="menu_list">
+                <MenuList />
+            </div>
             <hr className="center-star" data-content="★" />
             <h2 className="specials-title">Specials this Week</h2>
             <Slider prevArrow={<PreviousBtn />}

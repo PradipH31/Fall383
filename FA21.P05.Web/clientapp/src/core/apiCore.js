@@ -1,5 +1,5 @@
 export const getCategories = () => {
-  return fetch(`api/menu-categories`, {
+  return fetch(`/api/menu-categories`, {
     method: "GET",
   })
     .then((res) => {
@@ -9,7 +9,7 @@ export const getCategories = () => {
 };
 
 export const createCategory = (category) => {
-  return fetch(`api/menu-categories`, {
+  return fetch(`/api/menu-categories`, {
     method: "POST",
     headers: {
       Accept: "application/json",

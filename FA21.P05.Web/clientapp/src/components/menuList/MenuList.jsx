@@ -7,6 +7,7 @@ import CheckBox from '../../feature/CheckBox'
 import { getMenuItems } from '../actions/menuitems'
 import ItemCards from '../ItemCards/ItemCards'
 import { BsArrowDownSquareFill } from "react-icons/bs"
+import DownloadApp from '../downloadapp/Downloadapp'
 
 const MenuList = () => {
     const [myFilters, setMyFilters] = useState({
@@ -58,26 +59,35 @@ const MenuList = () => {
     }
 
     return (
-        <div className="row">
-            <div className="col-3">
-                <h5>Category</h5>
-                <ul>
-                    <CheckBox categories={categories} handleFilters={filters => handleFilters(filters, 'category')} />
-                </ul>
+        <div className="menu_container">
+            <div className="d-none d-sm-block d-md-none">
+                <DownloadApp />
             </div>
-            <div className="col-8">
-                <h3 className="mb-4">All Menu </h3>
+            <div className="d-sm-none d-md-block">
                 <div className="row">
-                    {
-                        items.slice(0, limit ? limit : items.length).map((item, index) => (
-                            <ItemCards items={item} key={index} />
-                        ))
-                    }
+                    <div className="col-3">
+                        <h5>Category</h5>
+                        <ul>
+                            <CheckBox categories={categories} handleFilters={filters => handleFilters(filters, 'category')} />
+                        </ul>
+                    </div>
+                    <div className="col-8">
+                        <h3 className="mb-4">All Menu </h3>
+                        <div className="row">
+                            {
+                                items.slice(0, limit ? limit : items.length).map((item, index) => (
+                                    <ItemCards items={item} key={index} />
+                                ))
+                            }
+                        </div>
+                        <hr />
+                        {loadMoreButton()}
+                    </div>
                 </div>
-                <hr />
-                {loadMoreButton()}
             </div>
         </div>
+
+
     )
 }
 
