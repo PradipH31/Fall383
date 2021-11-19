@@ -146,7 +146,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.Admin)]
+        // [Authorize(Roles = RoleNames.Admin)]
         public ActionResult<MenuItemDto> Create(MenuItemDto menuItem)
         {
             if (menuItem.Price <= 0)

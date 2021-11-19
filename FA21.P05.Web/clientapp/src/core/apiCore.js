@@ -40,3 +40,13 @@ export const createProduct = (food) => {
       console.log(err);
     });
 };
+
+export const readProduct = (itemId) => {
+  return fetch(`/api/menu-items/${itemId}`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => console.log(err));
+};

@@ -1,7 +1,6 @@
 import React from "react";
 import "./ItemCards.css";
 import { Link } from "react-router-dom";
-import { BsFillCartPlusFill } from "react-icons/bs";
 import { AiTwotoneStar } from "react-icons/ai";
 const ItemCards = ({ items }) => {
   return (
@@ -38,16 +37,16 @@ const ItemCards = ({ items }) => {
           />
         </div>
         <div className="card-body px-4">
-          <p>{items.description}</p>
+          <p>{items.description.substring(0, 20)}</p>
           <p style={{ color: "#e01e00" }}>$ {items.price}</p>
-          <Link to="/">
+          <Link to={`/item/${items.id}`}>
             <button className="btn btn-outline-primary mt-2 mb-2">
               View {items.name}
             </button>
-            <button className="btn btn-outline-secondary mt-2 mb-2">
-              <BsFillCartPlusFill fill="#152b01" />
-            </button>
           </Link>
+          <button className="btn btn-outline-secondary mt-2 mb-2">
+            Add To Cart
+          </button>
         </div>
       </div>
     </div>

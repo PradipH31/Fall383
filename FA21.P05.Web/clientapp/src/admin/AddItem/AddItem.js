@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Layout from "../../core/Layout/Layout";
 import { ToastContainer, toast } from "react-toastify";
@@ -79,7 +77,7 @@ const AddItem = () => {
     event.preventDefault();
     setValues({ ...values, error: "", loading: true });
     createProduct(formData).then((data) => {
-      if (data.error) {
+      if (error) {
         setValues({ ...values, error: data.error });
         toast.error(`${name} could not created!`, {
           position: "top-right",
