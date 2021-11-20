@@ -27,7 +27,13 @@ const Item = (props) => {
       }
       className="container-fluid"
     >
-      {JSON.stringify(item)}
+      <div className="d-flex justify-content-md-center align-items-center vh-100">
+        {item && item.description && (
+          <div>
+            <ItemCards items={item} />
+          </div>
+        )}
+      </div>{" "}
     </Layout>
   );
 };

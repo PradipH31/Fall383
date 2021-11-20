@@ -95,31 +95,38 @@ const AddItem = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: "", loading: true });
-    createProduct({ name, description, imageLink, price, isSpecial }).then(
-      (data) => {
-        if (error) {
-          setValues({ ...values, error: data.error });
-          toast.error(`${name} could not created!`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        } else {
-          setValues({
-            ...values,
-            name: "",
-            description: "",
-            imageLink: "",
-            price: "",
-            loading: false,
-          });
-        }
+    createProduct({
+      name,
+      description,
+      imageLink,
+      price,
+      category,
+      addon,
+      isSpecial,
+    }).then((data) => {
+      if (error) {
+        setValues({ ...values, error: data.error });
+        toast.error(`${name} could not created!`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          description: "",
+          isSpecial: "",
+          imageLink: "",
+          price: "",
+          loading: false,
+        });
       }
-    );
+    });
   };
 
   const showLoading = () =>
