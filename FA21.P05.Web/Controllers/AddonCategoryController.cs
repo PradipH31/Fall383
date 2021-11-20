@@ -77,7 +77,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = RoleNames.StaffOrAdmin)]
+        // [Authorize(Roles = RoleNames.StaffOrAdmin)]
         [Route("{id}")]
         public ActionResult<AddonCategoryDto> Update(int id, AddonCategoryDto item)
         {
@@ -105,7 +105,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.StaffOrAdmin)]
+        // [Authorize(Roles = RoleNames.StaffOrAdmin)]
         public ActionResult<AddonCategoryDto> Create(AddonCategoryDto Category)
         {
             if (Category.Name.Equals(""))
@@ -127,7 +127,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = RoleNames.Admin)]
+        // [Authorize(Roles = RoleNames.Admin)]
         [Route("{id}")]
         public ActionResult Delete(int id)
         {

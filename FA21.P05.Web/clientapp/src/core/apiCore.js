@@ -8,6 +8,16 @@ export const getCategories = () => {
     .catch((err) => console.log(err));
 };
 
+export const getAddOnCategory = () => {
+  return fetch(`/api/addon-categories`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 export const createCategory = (category) => {
   return fetch(`/api/menu-categories`, {
     method: "POST",

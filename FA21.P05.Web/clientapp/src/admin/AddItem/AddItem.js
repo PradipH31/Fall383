@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../core/Layout/Layout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createProduct, getCategories } from "../../core/apiCore";
+import {
+  createProduct,
+  getCategories,
+  getAddOnCategory,
+} from "../../core/apiCore";
 
 import { Avatar, CircularProgress } from "@material-ui/core";
 
@@ -19,11 +23,12 @@ const AddItem = () => {
     price: "",
     categories: [],
     category: "",
+    addon: "",
+    addOnCategories: [],
     isSpecial: false,
     imageLink: "",
     loading: false,
     error: "",
-    formData: "",
   });
   const {
     name,
@@ -31,15 +36,16 @@ const AddItem = () => {
     price,
     categories,
     category,
+    addon,
     isSpecial,
     imageLink,
+    addOnCategories,
     loading,
     error,
-    formData,
   } = values;
 
   const init = () => {
-    return getCategories().then((data) => {
+    getCategories().then((data) => {
       if (error) {
         setValues({ ...values, error: data.error });
         toast.error("Categories has not been fetched!", {
@@ -56,8 +62,18 @@ const AddItem = () => {
           ...values,
           error: "",
           categories: data,
-          formData: new FormData(),
         });
+      }
+    });
+  };
+
+  const init2 = () => {
+    getAddOnCategory().then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+        alert("Error fetching add on category");
+      } else {
+        setValues({ ...values, error: "", addOnCategories: data });
       }
     });
   };
@@ -66,39 +82,44 @@ const AddItem = () => {
     init();
   }, []);
 
+  useEffect(() => {
+    init2();
+  }, []);
+
   const handleChange = (name) => (event) => {
     const value =
       name === "imageLink" ? event.target.files[0] : event.target.value;
-    formData.set(name, value);
     setValues({ ...values, [name]: value });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: "", loading: true });
-    createProduct(formData).then((data) => {
-      if (error) {
-        setValues({ ...values, error: data.error });
-        toast.error(`${name} could not created!`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        setValues({
-          ...values,
-          name: "",
-          description: "",
-          imageLink: "",
-          price: "",
-          loading: false,
-        });
+    createProduct({ name, description, imageLink, price, isSpecial }).then(
+      (data) => {
+        if (error) {
+          setValues({ ...values, error: data.error });
+          toast.error(`${name} could not created!`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          setValues({
+            ...values,
+            name: "",
+            description: "",
+            imageLink: "",
+            price: "",
+            loading: false,
+          });
+        }
       }
-    });
+    );
   };
 
   const showLoading = () =>
@@ -163,6 +184,18 @@ const AddItem = () => {
             <option>Please Select One</option>
             {categories &&
               categories.map((c, i) => (
+                <option key={i} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="text-muted">Add On</label>
+          <select onChange={handleChange("addon")} className="form-control">
+            <option>Please Select One</option>
+            {addOnCategories &&
+              addOnCategories.map((c, i) => (
                 <option key={i} value={c.id}>
                   {c.name}
                 </option>
