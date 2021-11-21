@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import ItemCards from "../../components/ItemCards/ItemCards";
 import { readProduct } from "../apiCore";
+import { Link } from "react-router-dom";
 
 const Item = (props) => {
   const [item, setItem] = useState({});
@@ -19,21 +20,28 @@ const Item = (props) => {
     loadSingleItem(itemId);
   }, []);
 
+  const returnBack = () => (
+    <>
+      <Link to="/menu" style={{ color: "#fff", textDecoration: "none" }}>
+        <button className="btn btn-info">Back</button>
+      </Link>
+    </>
+  );
+
   return (
     <Layout
       title={item && item.name}
-      description={
-        item && item.description && item.description.substring(0, 100)
-      }
+      description={item && item.description}
       className="container-fluid"
     >
       <div className="d-flex justify-content-md-center align-items-center vh-100">
         {item && item.description && (
           <div>
-            <ItemCards items={item} />
+            <ItemCards items={item} showViewItemButton={false} />
+            <div className="float-right mt-2 mb-2">{returnBack()}</div>
           </div>
         )}
-      </div>{" "}
+      </div>
     </Layout>
   );
 };

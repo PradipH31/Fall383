@@ -2,11 +2,20 @@ import React from "react";
 import "./ItemCards.css";
 import { Link } from "react-router-dom";
 import { AiTwotoneStar } from "react-icons/ai";
-const ItemCards = ({ items }) => {
+const ItemCards = ({ items, showViewItemButton = true }) => {
+  const showItemButton = (showViewItemButton) => {
+    return (
+      showViewItemButton && (
+        <Link to={`/item/${items.id}`}>
+          <button className="btn btn-danger mt-2 mb-2">View Item</button>
+        </Link>
+      )
+    );
+  };
   return (
     <div className="card">
       <div
-        className="card-header"
+        className="card-header name"
         style={{
           display: "flex",
           flexDirection: "row",
@@ -17,7 +26,7 @@ const ItemCards = ({ items }) => {
         <div>
           {" "}
           {items.isSpecial ? (
-            <AiTwotoneStar size={"1em"} fill="#de2100" />
+            <AiTwotoneStar size={"1em"} fill="#ffffff" />
           ) : (
             <></>
           )}
@@ -36,16 +45,13 @@ const ItemCards = ({ items }) => {
         />
       </div>
       <div className="card-body px-4">
-        <p>{items.description.substring(0, 20)}</p>
+        <p className="lead mt-2">{items.description.substring(0, 100)}</p>
         <p style={{ color: "#e01e00" }}>$ {items.price}</p>
-        <Link to={`/item/${items.id}`}>
-          <button className="btn btn-outline-primary mt-2 mb-2">
-            View {items.name}
-          </button>
-        </Link>
-        <button className="btn btn-outline-secondary mt-2 mb-2">
-          Add To Cart
-        </button>
+        <div className="d-flex justify-content-between">
+          {showItemButton(showViewItemButton)}
+
+          <button className="btn btn-warning mt-2 mb-2">Add To Cart</button>
+        </div>
       </div>
     </div>
   );
