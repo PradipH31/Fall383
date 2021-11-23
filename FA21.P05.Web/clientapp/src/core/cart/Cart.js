@@ -4,11 +4,15 @@ import { getCartItems } from "../helpers/cartHelper";
 import ItemCards from "../../components/ItemCards/ItemCards";
 import { Link } from "react-router-dom";
 
+import Checkout from "../checkout/Checkout";
+
 const Cart = () => {
   const [items, setItems] = useState([]);
+  const [run, setRun] = useState(false);
   useEffect(() => {
+    console.log("MAX DEPTH...");
     setItems(getCartItems());
-  }, [items]);
+  }, [run]);
 
   const showCartItems = (items) => {
     return (
@@ -16,9 +20,9 @@ const Cart = () => {
         <h2>
           Your cart has{" "}
           <i style={{ color: "#c92800" }}>' {`${items.length}`} '</i> &nbsp;
-          items{" "}
+          items
         </h2>
-        <hr className="center-star" data-content="★" />{" "}
+        <hr className="center-star" data-content="★" />
         {items.map((item, i) => (
           <ItemCards
             key={i}
@@ -26,6 +30,8 @@ const Cart = () => {
             showCartButton={false}
             cartUpdate={true}
             showRemoveButton={true}
+            setRun={setRun}
+            run={run}
           />
         ))}
       </div>
@@ -69,13 +75,17 @@ const Cart = () => {
             {items.length > 0 ? showCartItems(items) : emptyCart()}
           </div>
           <div className={"col-md-6"}>
-            <h3 style={{ letterSpacing: "0.2em", fontWeight: "bold" }}>
-              {" "}
+            <h3
+              style={{ letterSpacing: "0.2em", fontWeight: "bold" }}
+              className="mb-3"
+            >
               Your Checkout Summary
             </h3>
             <p style={{ letterSpacing: "2px" }}>
               Checkout options/shipping address/total/update quantity.
             </p>
+            <hr className="center-star" data-content="★" />
+            <Checkout items={items} />
           </div>
         </div>
       </div>

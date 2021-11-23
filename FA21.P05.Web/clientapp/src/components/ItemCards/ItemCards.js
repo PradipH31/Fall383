@@ -11,6 +11,8 @@ const ItemCards = ({
   showCartButton = true,
   cartUpdate = false,
   showRemoveButton = false,
+  setRun = (f) => f,
+  run = undefined,
 }) => {
   const [redirect, setRedirect] = useState(false);
   const [count, setCount] = useState(items.count);
@@ -40,7 +42,10 @@ const ItemCards = ({
   const showAddToCartButton = (showCartButton) => {
     return (
       showCartButton && (
-        <button onClick={addToCart} className="btn btn-warning mt-2 mb-2">
+        <button
+          onClick={addToCart}
+          className="btn btn-warning mt-2 mb-2 card-btn-1"
+        >
           Add To Cart
         </button>
       )
@@ -51,7 +56,10 @@ const ItemCards = ({
     return (
       showRemoveButton && (
         <button
-          onClick={() => removeItem(items.id)}
+          onClick={() => {
+            removeItem(items.id);
+            setRun(!run);
+          }}
           className="btn btn-danger mt-2 mb-2"
         >
           Remove
@@ -61,6 +69,7 @@ const ItemCards = ({
   };
 
   const handleChange = (itemId) => (event) => {
+    setRun(!run); // run useEffect in parent cart
     setCount(event.target.value < 1 ? 1 : event.target.value);
     if (event.target.value >= 1) {
       updateItem(itemId, event.target.value);
