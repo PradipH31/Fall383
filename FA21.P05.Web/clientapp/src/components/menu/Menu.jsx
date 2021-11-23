@@ -9,7 +9,6 @@ import Card from "../card/Card";
 import MenuList from "../menuList/MenuList";
 
 const PreviousBtn = (props) => {
-    // console.log(props);
     const { className, onClick } = props;
     return (
         <div className={className} onClick={onClick}>
@@ -33,7 +32,6 @@ const Menu = () => {
         return getSpecialItems()
             .then((data) => {
                 setItems(data);
-                console.log(data);
             })
             .catch((err) => console.log(err));
     };

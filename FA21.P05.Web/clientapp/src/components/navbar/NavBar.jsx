@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo1.png'
+import { itemTotal } from '../../core/helpers/cartHelper';
+import { BsFillCartFill } from "react-icons/bs"
 
 const NavBar = () => {
     const [navbar, setNavbar] = useState(false);
@@ -28,7 +30,9 @@ const NavBar = () => {
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/orders">Booking</Link></li>
                     <li><Link to="/contact">Contact</Link></li>
-                    {/* <li><Link to="/">Cart</Link></li> */}
+                    <li><Link style={{ display: "inline-block", justifyContent: "center" }} to="/cart"><BsFillCartFill className="cart-menu" fill="#c92800" />  &nbsp;
+                        <span>Cart <sup><small
+                            className={"badge badge-danger"}>{itemTotal()}</small></sup></span>{' '}</Link></li>
                 </ul>
             </div>
         </nav>

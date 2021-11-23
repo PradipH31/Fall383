@@ -14,6 +14,7 @@ import AdminDashBoard from "./pages/admindashboard/AdminDashBoard";
 import AddCategory from "./admin/AddCategory/AddCategory";
 import AddItem from "./admin/AddItem/AddItem";
 import Item from "./core/Item/Item";
+import Cart from "./core/cart/Cart";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/create/category" exact component={AddCategory} />
         <Route path="/create/menu-item" exact component={AddItem} />
         <Route path="/item/:itemId" component={Item} />
+        <Route path="/cart" exact component={Cart} />
 
         <Route path={"*"}>
           <PageNotFound />

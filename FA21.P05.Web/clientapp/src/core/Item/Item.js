@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 
 const Item = (props) => {
   const [item, setItem] = useState({});
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   const loadSingleItem = (itemId) => {
     readProduct(itemId).then((data) => {
-      if (data.error) setError(data.error);
+      if (error) setError(data.error);
       else setItem(data);
     });
   };
@@ -18,6 +18,7 @@ const Item = (props) => {
   useEffect(() => {
     const itemId = props.match.params.itemId;
     loadSingleItem(itemId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const returnBack = () => (

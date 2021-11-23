@@ -8,6 +8,16 @@ export const getCategories = () => {
     .catch((err) => console.log(err));
 };
 
+export const readCategoryById = (categoryId) => {
+  return fetch(`/api/menu-categories/${categoryId}`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 export const getAddOnCategory = () => {
   return fetch(`/api/addon-categories`, {
     method: "GET",

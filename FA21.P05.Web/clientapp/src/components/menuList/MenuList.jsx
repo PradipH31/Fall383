@@ -24,7 +24,6 @@ const MenuList = () => {
                 setError(error)
             } else {
                 setCategories(data)
-                console.log(data)
             }
         })
     }
@@ -34,7 +33,6 @@ const MenuList = () => {
                 setError(data.error);
             } else {
                 setItems(data);
-                console.log(data);
             }
         });
     }
