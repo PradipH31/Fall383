@@ -1,10 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Layout from "../../core/Layout/Layout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createProduct, getCategories } from "../../core/apiCore";
+import {
+  createProduct,
+  getCategories,
+  getAddOnCategory,
+} from "../../core/apiCore";
 
 import { Avatar, CircularProgress } from "@material-ui/core";
 
@@ -21,11 +23,12 @@ const AddItem = () => {
     price: "",
     categories: [],
     category: "",
+    addon: "",
+    addOnCategories: [],
     isSpecial: false,
     imageLink: "",
     loading: false,
     error: "",
-    formData: "",
   });
   const {
     name,
@@ -33,15 +36,16 @@ const AddItem = () => {
     price,
     categories,
     category,
+    addon,
     isSpecial,
     imageLink,
+    addOnCategories,
     loading,
     error,
-    formData,
   } = values;
 
   const init = () => {
-    return getCategories().then((data) => {
+    getCategories().then((data) => {
       if (error) {
         setValues({ ...values, error: data.error });
         toast.error("Categories has not been fetched!", {
@@ -58,28 +62,51 @@ const AddItem = () => {
           ...values,
           error: "",
           categories: data,
-          formData: new FormData(),
         });
+      }
+    });
+  };
+
+  const init2 = () => {
+    getAddOnCategory().then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+        alert("Error fetching add on category");
+      } else {
+        setValues({ ...values, error: "", addOnCategories: data });
       }
     });
   };
 
   useEffect(() => {
     init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    init2();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (name) => (event) => {
     const value =
       name === "imageLink" ? event.target.files[0] : event.target.value;
-    formData.set(name, value);
     setValues({ ...values, [name]: value });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: "", loading: true });
-    createProduct(formData).then((data) => {
-      if (data.error) {
+    createProduct({
+      name,
+      description,
+      imageLink,
+      price,
+      category,
+      addon,
+      isSpecial,
+    }).then((data) => {
+      if (error) {
         setValues({ ...values, error: data.error });
         toast.error(`${name} could not created!`, {
           position: "top-right",
@@ -95,6 +122,7 @@ const AddItem = () => {
           ...values,
           name: "",
           description: "",
+          isSpecial: "",
           imageLink: "",
           price: "",
           loading: false,
@@ -165,6 +193,18 @@ const AddItem = () => {
             <option>Please Select One</option>
             {categories &&
               categories.map((c, i) => (
+                <option key={i} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="text-muted">Add On</label>
+          <select onChange={handleChange("addon")} className="form-control">
+            <option>Please Select One</option>
+            {addOnCategories &&
+              addOnCategories.map((c, i) => (
                 <option key={i} value={c.id}>
                   {c.name}
                 </option>

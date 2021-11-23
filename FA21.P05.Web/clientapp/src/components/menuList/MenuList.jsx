@@ -24,7 +24,6 @@ const MenuList = () => {
                 setError(error)
             } else {
                 setCategories(data)
-                console.log(data)
             }
         })
     }
@@ -34,7 +33,6 @@ const MenuList = () => {
                 setError(data.error);
             } else {
                 setItems(data);
-                console.log(data);
             }
         });
     }
@@ -76,7 +74,9 @@ const MenuList = () => {
                         <div className="row">
                             {
                                 items.slice(0, limit ? limit : items.length).map((item, index) => (
-                                    <ItemCards items={item} key={index} />
+                                    <div key={index} className="col-4 mb-3">
+                                        <ItemCards items={item} />
+                                    </div>
                                 ))
                             }
                         </div>

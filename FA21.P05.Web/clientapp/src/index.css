@@ -1,30 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap");
-
 body {
   margin: 0px;
   padding: 0px;
   background-color: #ffffff;
   font-family: "Bebas Neue", "Lato", sans-serif;
 }
+
 * {
   box-sizing: border-box;
 }
+
 ul {
   list-style: none;
 }
+
 a {
   text-decoration: none;
 }
+
 button {
   outline: none;
   border: none;
 }
+
 input {
   outline: none;
   border: none;
 }
+
 .logo img {
   width: 32px;
 }
@@ -38,11 +43,14 @@ input {
 }
 
 #main {
-  width: 100%;
-  height: 768px;
+  width: 1080px;
+  height: 60vh;
+  background-size: contain;
+  background-position-x: 150%;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
   background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("./assets//images/banner.png");
 }
 
@@ -58,21 +66,25 @@ nav {
   background-color: transparent;
   transition: 0.6s ease-in-out;
 }
+
 nav.active {
   box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.157);
   background-color: #ffffff;
 }
+
 nav ul {
   display: flex;
 }
+
 nav ul li a {
   font-family: "Bebas Neue";
   height: 40px;
+  text-decoration: none;
   line-height: 43px;
   margin: 3px;
   padding: 0px 22px;
   display: flex;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
   font-weight: 500;
   color: #0f0c0a;
@@ -80,35 +92,53 @@ nav ul li a {
   border-radius: 3px;
   transition: 0.2s ease-in-out;
 }
+
 nav ul li a:hover {
   background-color: #e03f0d;
   color: #ffffff;
   box-shadow: 5px 10px 30px rgba(243, 40, 5, 0.336);
   transition: all ease 0.2s;
+  text-decoration: none;
 }
+
 nav .menu-btn,
 .menu-icon {
   display: none;
+}
+
+nav.navbar .nav-container {
+  width: 1080px;
+  display: flex;
+  place-content: inherit;
+  margin: auto;
+  align-items: center;
+}
+
+.ul {
+  margin-bottom: revert;
+  margin-top: revert;
 }
 
 .header-heading {
   font-family: "Montserrat";
   width: 900px;
   position: absolute;
-  left: 25%;
-  top: 55%;
+  left: 9%;
+  top: 20%;
   text-align: left;
-  transform: translate(-25%, -55%);
 }
+
 .header-heading span {
   font-family: "Alfa Slab One";
   color: #e03f0d;
   border-bottom: 2px solid #d42e059c;
 }
+
 .header-heading .details {
   font-size: 23px;
   color: #000000;
 }
+
 .header-heading h3 {
   font-family: "Bebas Neue";
   font-size: 1.6rem;
@@ -116,6 +146,7 @@ nav .menu-btn,
   letter-spacing: 2px;
   color: #291a0f;
 }
+
 .header-heading h1 {
   font-family: "Alfa Slab One";
   font-size: 4rem;
@@ -123,10 +154,12 @@ nav .menu-btn,
   letter-spacing: 2px;
   color: #3d2514;
 }
+
 .header-btns {
   display: flex;
   margin-top: 40px;
 }
+
 .header-btn {
   width: 160px;
   height: 50px;
@@ -140,11 +173,25 @@ nav .menu-btn,
   border-radius: 5px;
   color: #ffffff;
 }
+
 .header-btn:hover {
   background-color: transparent;
   transition: all ease 0.5s;
   color: #38291e;
   border: 2px solid #e03f0d;
+}
+
+ul li .cart-menu:hover {
+  fill: #ffffff;
+}
+
+.badge,
+.badge:hover {
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 15px;
+  font-style: italic;
+  background-color: #e03f0d;
 }
 
 #features {
@@ -202,6 +249,7 @@ nav .menu-btn,
   justify-content: center;
   align-content: center;
 }
+
 .a-box {
   background-color: #ffffff;
   width: 300px;
@@ -213,15 +261,18 @@ nav .menu-btn,
   transition: 0.3s ease-in-out;
   position: relative;
 }
+
 .a-b-img {
   width: 100%;
   height: 60%;
 }
+
 .a-b-img img {
   padding: 25px;
   width: 100%;
   height: 100%;
 }
+
 .a-box:hover {
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
 }
@@ -236,6 +287,7 @@ nav .menu-btn,
   text-align: center;
   flex-direction: column;
 }
+
 .a-b-text h2 {
   color: #e03f0d;
 }
@@ -243,6 +295,7 @@ nav .menu-btn,
 h2 .center-star {
   max-width: 70%;
 }
+
 .center-star {
   line-height: 1em;
   position: relative;
@@ -269,7 +322,6 @@ h2 .center-star {
   position: relative;
   display: inline-block;
   color: rgb(107, 107, 107);
-
   padding: 0 0.5em;
   line-height: 1.5em;
   color: #8f8f8f;
@@ -326,13 +378,19 @@ h2 .center-star {
 
 @media (max-width: 1190px) {
   #main {
-    background-size: 1150px !important;
+    background-size: contain;
+    width: 970px;
+  }
+  nav.navbar .nav-container {
+    width: 970px;
   }
   .header-heading {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: 9%;
+    width: auto;
     text-align: center;
+  }
+  .header-btns {
+    justify-content: center;
   }
   .header-heading h2 {
     font-size: 1.5rem;
@@ -358,71 +416,21 @@ h2 .center-star {
   .a-b-img img {
     object-fit: contain;
   }
-
   .app_section .app_image {
     max-width: 20rem;
   }
 }
 
 @media (max-width: 970px) {
-  #main {
-    height: 650px;
-  }
-  .header-heading {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .header-btn {
-    margin-left: 20%;
-    margin-top: 20px;
-  }
-
-  #features {
-    margin-bottom: 100px;
-  }
-
-  .app_section {
-    grid-template-columns: 1fr;
-    padding: 20rem 0;
-    margin: 3rem 9%;
-  }
-  .app_section .app_content {
-    width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .app_section .app_content h3 {
-    font-size: 3.5rem;
-    margin-bottom: 5rem;
-  }
-
-  .app_section .app_content p {
-    width: 70%;
-  }
-
-  .app_section .app_image {
-    opacity: 0.9;
-    top: 25%;
-    left: 70%;
-    max-width: 10rem;
-  }
-
-  .app_section .app_content .app_links img {
-    width: 8rem;
-    margin-right: 0;
-  }
-}
-
-@media (max-width: 600px) {
   .header-heading {
     width: 60%;
+    left: 20%;
+    top: 30%;
   }
   .s-container {
     width: 75%;
     text-align: center;
   }
-
   .s-container span {
     font-size: 1.3rem;
     letter-spacing: 1.4px;
@@ -448,18 +456,13 @@ h2 .center-star {
     font-size: 3.5rem;
     margin-bottom: 5rem;
   }
-
   .app_section .app_content p {
     width: 100%;
   }
-
   .app_section .app_content .app_links img {
     width: 8rem;
     margin-right: 0;
   }
-}
-
-@media (max-width: 1100px) {
   .menu-icon {
     display: block;
   }
@@ -487,6 +490,9 @@ h2 .center-star {
   }
   .menu li {
     width: 100%;
+  }
+  nav.navbar {
+    position: fixed;
   }
   nav .menu li a {
     width: 100%;
@@ -548,5 +554,9 @@ h2 .center-star {
   }
   nav .menu-btn:checked ~ .menu {
     display: block;
+  }
+  #main {
+    background: none;
+    width: auto;
   }
 }
