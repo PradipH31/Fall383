@@ -1,3 +1,9 @@
+@media only screen and (max-width:1440px) and (min-width:1024px) {
+  section.app_section {
+    position: unset;
+  }
+}
+
 /* section .app-section {
     margin: 10rem 9%;
     border-radius: 0.5rem;
