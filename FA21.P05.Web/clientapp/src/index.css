@@ -132,6 +132,7 @@ nav.navbar .nav-container {
   font-family: "Alfa Slab One";
   color: #e03f0d;
   border-bottom: 2px solid #d42e059c;
+  line-height: normal;
 }
 
 .header-heading .details {
@@ -427,6 +428,9 @@ h2 .center-star {
     left: 20%;
     top: 30%;
   }
+  .header-heading .details {
+    font-size: 2rem;
+  }
   .s-container {
     width: 75%;
     text-align: center;
@@ -558,5 +562,12 @@ h2 .center-star {
   #main {
     background: none;
     width: auto;
+    height: 70vh;
+  }
+}
+
+@media (max-width: 435px){
+  nav.navbar li.monitors-only{
+    display: none;
   }
 }

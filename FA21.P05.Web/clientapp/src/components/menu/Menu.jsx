@@ -7,6 +7,7 @@ import { getSpecialItems } from "../actions/menuitems";
 import { useEffect, useState } from "react";
 import Card from "../card/Card";
 import MenuList from "../menuList/MenuList";
+import { Redirect } from "react-router";
 
 const PreviousBtn = (props) => {
     const { className, onClick } = props;
@@ -27,6 +28,7 @@ const NextBtn = (props) => {
 
 const Menu = () => {
     const [items, setItems] = useState([]);
+    const [redirect, setRedirect] = useState();
 
     const getSpecials = () => {
         return getSpecialItems()
@@ -39,10 +41,15 @@ const Menu = () => {
 
     useEffect(() => {
         getSpecials();
+        if (window.screen.width < 425) {
+            setRedirect(<Redirect to={{ pathname: '/' }} />)
+        }
     }, []);
 
     return (
-        <div style={{ margin: "5%" }} className="specials">
+        < div style={{ margin: "5%" }
+        } className="specials" >
+            {redirect}
             <h2 className="specials-title">Menu List</h2>
             <div className="menu_list">
                 <MenuList />
@@ -60,7 +67,7 @@ const Menu = () => {
                     <Card key={index} item={item} />
                 ))}
             </Slider>
-        </div>
+        </div >
     );
 };
 

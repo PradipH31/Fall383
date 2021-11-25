@@ -138,7 +138,7 @@ const ItemCards = ({
           )}
         </div>
 
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between card-footer-cart">
           {showItemButton(showViewItemButton)}
           {showAddToCartButton(showCartButton)}
           {showRemoveCartButton(showRemoveButton)}

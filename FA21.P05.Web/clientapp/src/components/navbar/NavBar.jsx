@@ -6,6 +6,7 @@ import { BsFillCartFill } from "react-icons/bs"
 
 const NavBar = () => {
     const [navbar, setNavbar] = useState(false);
+    const [checked, setChecked] = useState(false);
     const changeBackground = () => {
         if (window.scrollY >= 50) {
             setNavbar(true)
@@ -21,16 +22,24 @@ const NavBar = () => {
                 <Link to="/" className='logo'>
                     <img src={logo} alt='' />
                 </Link>
-                <input className="menu-btn" type="checkbox" id="menu-btn" />
-                <label className="menu-icon" htmlFor="menu-btn">
+                <input className="menu-btn" type="checkbox" id="menu-btn" checked={checked} />
+                <label className="menu-icon" htmlFor="menu-btn"
+                    onClick={() => {
+                        setChecked(!checked);
+                    }}
+                >
                     <span className="nav-icon"></span>
                 </label>
-                <ul className="menu">
-                    <li><Link to="/menu">Menu</Link></li>
+                <ul className="menu"
+                    onClick={() => {
+                        setChecked(!checked);
+                    }}
+                >
+                    <li className="monitors-only"><Link to="/menu">Menu</Link></li>
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/orders">Booking</Link></li>
                     <li><Link to="/contact">Contact</Link></li>
-                    <li><Link style={{ display: "inline-block", justifyContent: "center" }} to="/cart"><BsFillCartFill className="cart-menu" fill="#c92800" />  &nbsp;
+                    <li className="monitors-only"><Link style={{ display: "inline-block", justifyContent: "center" }} to="/cart"><BsFillCartFill className="cart-menu" fill="#c92800" />  &nbsp;
                         <span>Cart <sup><small
                             className={"badge badge-danger"}>{itemTotal()}</small></sup></span>{' '}</Link></li>
                 </ul>
