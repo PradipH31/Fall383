@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "braintree-web";
 import BraintreeDropIn from "../BrainTreeDropIn/BrainTreeDropIn";
+import { createOrder } from "../../components/actions/orders"
 
 const Checkout = ({ items }) => {
   const [showBrainTreeDropIn, setShowBrainTreeDropIn] = useState(false);
@@ -9,6 +10,15 @@ const Checkout = ({ items }) => {
       return currentValue + nextValue.count * nextValue.price;
     }, 0);
   };
+
+  var cart = JSON.parse(localStorage.getItem("cart"))
+  var orderItems = null
+  if (cart !== null) {
+    orderItems = cart.map(orderItem => ({
+      "menuItemId": orderItem.id,
+      "menuItemQuantity": orderItem.count
+    }))
+  }
 
   return (
     <div>
@@ -43,9 +53,10 @@ const Checkout = ({ items }) => {
         show={showBrainTreeDropIn}
         onPaymentCompleted={() => {
           setShowBrainTreeDropIn(false);
+          createOrder(orderItems)
         }}
       />
-    </div>
+    </div >
   );
 };
 

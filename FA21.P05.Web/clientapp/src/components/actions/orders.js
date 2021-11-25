@@ -1,5 +1,6 @@
+import { clearCart } from "../../core/helpers/cartHelper";
+
 export const createOrder = (
-  //userId, token
   createOrderData
 ) => {
   return fetch(`api/orders`, {
@@ -7,11 +8,11 @@ export const createOrder = (
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      //   Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ order: createOrderData }),
+    body: JSON.stringify({ "orderItems": createOrderData }),
   })
     .then((res) => {
+      clearCart();
       return res.json();
     })
     .catch((err) => console.log(err));
