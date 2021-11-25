@@ -41,7 +41,7 @@ const Menu = () => {
 
     useEffect(() => {
         getSpecials();
-        if (window.screen.width < 769) {
+        if (window.screen.width < 425) {
             setRedirect(<Redirect to={{ pathname: '/' }} />)
         }
     }, []);

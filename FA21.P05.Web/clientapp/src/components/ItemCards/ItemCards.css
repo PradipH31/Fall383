@@ -2,6 +2,11 @@
   flex: 1;
   margin: "5px";
 }
+
+.card {
+  margin-bottom: 5vh;
+}
+
 /* 
 .product-img {
   max-width: 200px;
