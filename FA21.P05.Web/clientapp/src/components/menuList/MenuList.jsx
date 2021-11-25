@@ -50,7 +50,7 @@ const MenuList = () => {
 
     const loadMoreButton = () => {
         return <>{
-            limit < items.length ? <button className="btn btn-primary mt-2 mb-2" onClick={() => setLimit(limit + 2)}>
+            limit < items.length ? <button className="btn btn-primary mt-2 mb-2 small-center" onClick={() => setLimit(limit + 2)}>
                 Load More &nbsp; <BsArrowDownSquareFill fill="white" />
             </button> : <></>
         }</>
