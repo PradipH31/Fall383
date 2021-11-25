@@ -53,7 +53,9 @@ const Checkout = ({ items }) => {
         show={showBrainTreeDropIn}
         onPaymentCompleted={() => {
           setShowBrainTreeDropIn(false);
-          createOrder(orderItems)
+          createOrder(orderItems).then(
+            window.location.reload(false)
+          );
         }}
       />
     </div >
