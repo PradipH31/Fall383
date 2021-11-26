@@ -19,8 +19,12 @@ const DownloadApp = () => {
                 <h3>Place your order through our app</h3>
                 <p>You can easily place your order using our mobile app. Now you can download our app for both iOS and Android mobiles.</p>
                 <div className="app_links">
-                    <img src={appstore} alt="app-store" />
-                    <img src={googleplay} alt="google-store" />
+                    <a href="exp://exp.host/@envoc_infrastructure/FA21-P05-G03-Mobile">
+                        <img src={appstore} alt="app-store" />
+                    </a>
+                    <a href="exp://exp.host/@envoc_infrastructure/FA21-P05-G03-Mobile">
+                        <img src={googleplay} alt="google-store" />
+                    </a>
                 </div>
             </div>
         </section>

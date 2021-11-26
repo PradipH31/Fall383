@@ -377,6 +377,15 @@ h2 .center-star {
   margin-bottom: 2rem;
 }
 
+@media (max-width: 1240px) {
+  #main{
+    height:66vh;
+  }
+  .app_section{
+    padding: 18rem 0;
+  }
+}
+
 @media (max-width: 1190px) {
   #main {
     background-size: contain;
