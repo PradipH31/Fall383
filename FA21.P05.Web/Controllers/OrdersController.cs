@@ -73,7 +73,7 @@ namespace FA21.P05.Web.Controllers
 
         [HttpGet]
         [Route("total")]
-        public ActionResult<Total> GetOrdersTotal()
+        public ActionResult<TotalDto> GetOrdersTotal()
         {
             var result = dataContext
                 .Set<Order>()
@@ -84,7 +84,7 @@ namespace FA21.P05.Web.Controllers
                 return NotFound();
             }
 
-            return new Total()
+            return new TotalDto()
             {
                 total = result
             };
@@ -234,7 +234,7 @@ namespace FA21.P05.Web.Controllers
         }
     }
 
-    public class Total
+    public class TotalDto
     {
         public decimal total { get; set; }
     }
