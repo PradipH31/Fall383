@@ -71,6 +71,25 @@ namespace FA21.P05.Web.Controllers
             return result;
         }
 
+        [HttpGet]
+        [Route("total")]
+        public ActionResult<Total> GetOrdersTotal()
+        {
+            var result = dataContext
+                .Set<Order>()
+                .Sum(x => x.OrderTotal);
+
+            if (result == 0)
+            {
+                return NotFound();
+            }
+
+            return new Total()
+            {
+                total = result
+            };
+        }
+
         [HttpPost]
         public ActionResult<OrderDto> Create(CreateOrderDto create)
         {
@@ -213,5 +232,10 @@ namespace FA21.P05.Web.Controllers
 
             return Ok();
         }
+    }
+
+    public class Total
+    {
+        public decimal total { get; set; }
     }
 }

@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../core/Layout/Layout";
 
 const AdminDashBoard = () => {
+  const [orderTotal, setOrderTotal] = useState(0)
+  useEffect(() => {
+    fetch('/api/orders/total')
+      .then(res => res.json())
+      .then((result) => {
+        setOrderTotal(result.total)
+      })
+    console.log(orderTotal)
+  },[orderTotal])
   const adminLinks = () => {
     return (
       <div className="card">
@@ -45,6 +54,7 @@ const AdminDashBoard = () => {
         <div className="col-3">{adminLinks()}</div>
         <div className="col-9">{adminInfo()}</div>
       </div>
+      Total Revenue: {orderTotal}
     </Layout>
   );
 };
