@@ -47,10 +47,10 @@ const Menu = () => {
     }, []);
 
     return (
-        < div style={{ margin: "5%" }
-        } className="specials" >
+        < div style={{ margin: "5%" }}
+            className="specials" >
             {redirect}
-            <h2 className="specials-title">Menu List</h2>
+            < h2 className="specials-title" > Menu List</h2 >
             <div className="menu_list">
                 <MenuList />
             </div>
