@@ -44,7 +44,7 @@ input {
 
 #main {
   width: 1080px;
-  height: 60vh;
+  height: 60vw;
   background-size: contain;
   background-position-x: 150%;
   margin-left: auto;
@@ -377,9 +377,15 @@ h2 .center-star {
   margin-bottom: 2rem;
 }
 
-@media (max-width: 1240px) {
+@media (min-width: 1440px) {
   #main{
     height:66vh;
+  }
+}
+
+@media (max-width: 1240px) {
+  #main{
+    height:66vw;
   }
   .app_section{
     padding: 18rem 0;

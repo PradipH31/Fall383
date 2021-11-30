@@ -11,7 +11,7 @@ const AdminDashBoard = () => {
         setOrderTotal(result.total)
       })
     console.log(orderTotal)
-  },[orderTotal])
+  }, [orderTotal])
   const adminLinks = () => {
     return (
       <div className="card">
@@ -40,6 +40,7 @@ const AdminDashBoard = () => {
           <li className="list-group-item">Admin</li>
           <li className="list-group-item">admin@selu.edu</li>
           <li className="list-group-item">Role = "Admin"</li>
+          <li className="list-group-item">Total Revenue: {orderTotal}</li>
         </ul>
       </div>
     );
@@ -54,7 +55,6 @@ const AdminDashBoard = () => {
         <div className="col-3">{adminLinks()}</div>
         <div className="col-9">{adminInfo()}</div>
       </div>
-      Total Revenue: {orderTotal}
     </Layout>
   );
 };
