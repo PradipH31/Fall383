@@ -37,7 +37,7 @@
   z-index: 1;
   background-color: aliceblue;
 }
-.card {
+.about_card {
   text-align: center;
   box-shadow: 0 0px 20px 0 rgba(255, 255, 255, 0.2);
   background-color: rgba(0, 0, 0, 0.2);
@@ -45,7 +45,7 @@
   transition: 0.3s;
 }
 
-.card-body > img {
+.about_card-body > img {
   min-width: 50%;
   object-fit: contain;
   height: 250px;

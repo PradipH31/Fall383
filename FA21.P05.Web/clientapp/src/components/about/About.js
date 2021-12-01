@@ -19,8 +19,8 @@ function About() {
         <div className="about_row">
           <div className="row">
             <div className="col-sm-6">
-              <div className="card text-center">
-                <div className="card-body">
+              <div className="about_card text-center">
+                <div className="about_card-body">
                   <h2 className="card-title">What do we Offer?</h2>
                   <p className="card-text">
                     Food To Go combines flavors and inspiration from the
@@ -38,8 +38,8 @@ function About() {
               </div>
             </div>
             <div className="col-sm-6">
-              <div className="card text-center">
-                <div className="card-body">
+              <div className="about_card text-center">
+                <div className="about_card-body">
                   <h2 className="card-title">Who are we?</h2>
                   <p className="card-text">
                     Food To Go is a classic restaurant located in the sweet spot
@@ -62,8 +62,8 @@ function About() {
 
           <div className="row">
             <div className="col-sm-6">
-              <div className="card">
-                <div className="card-body">
+              <div className="about_card">
+                <div className="about_card-body">
                   <img
                     src="https://envoc-3c77.kxcdn.com/uploads/play/Travis_overmier.png"
                     alt=""
@@ -82,8 +82,8 @@ function About() {
             </div>
 
             <div className="col-sm-6">
-              <div className="card">
-                <div className="card-body" bg-color="aquablue">
+              <div className="about_card">
+                <div className="about_card-body" bg-color="aquablue">
                   <img
                     src="https://envoc-3c77.kxcdn.com/uploads/play/matt_vidacovich.png"
                     alt=""

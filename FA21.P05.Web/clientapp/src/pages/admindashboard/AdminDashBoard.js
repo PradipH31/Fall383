@@ -40,7 +40,7 @@ const AdminDashBoard = () => {
           <li className="list-group-item">Admin</li>
           <li className="list-group-item">admin@selu.edu</li>
           <li className="list-group-item">Role = "Admin"</li>
-          <li className="list-group-item">Total Revenue: {orderTotal}</li>
+          <li className="list-group-item">Total Revenue: ${orderTotal}</li>
         </ul>
       </div>
     );
