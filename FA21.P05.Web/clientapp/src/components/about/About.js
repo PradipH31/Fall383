@@ -51,7 +51,7 @@ function About() {
                     just another lazy day where you donot want to cook; We have
                     got you covered.
                   </p>
-                  <Link to="/menu">
+                  <Link className="zoom" to="/menu">
                     <button className="btn btn-primary">Order Now</button>
                   </Link>
                 </div>
