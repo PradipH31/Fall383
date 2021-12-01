@@ -1,0 +1,61 @@
+background-color:whitesmoke .HomeImage {
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0, 0, 0),
+    rgba(209, 255, 3, 0.582)
+  );
+  z-index: -1;
+  margin-bottom: -40px;
+  height: 500px;
+  mask-image: linear-gradient(
+    to botttom,
+    rgb(216, 200, 200),
+    rgba(206, 207, 199, 0.582)
+  );
+}
+
+.bannertitle {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(241, 16, 16);
+  color: rgb(255, 255, 255);
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  position: static;
+  margin-top: -300px;
+  height: 70px;
+  min-width: 50px;
+  padding: 2px;
+  mask-image: linear-gradient(rgb(216, 200, 200), rgba(206, 207, 199, 0.582));
+}
+.bannertitle > p {
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+.about_row {
+  margin-top: 175px;
+  z-index: 1;
+  background-color: aliceblue;
+}
+.card {
+  text-align: center;
+  box-shadow: 0 0px 20px 0 rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  transition: 0.3s;
+}
+
+.card-body > img {
+  min-width: 50%;
+  object-fit: contain;
+  height: 250px;
+}
+
+.btn:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5);
+}
