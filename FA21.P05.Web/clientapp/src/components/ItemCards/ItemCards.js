@@ -79,7 +79,7 @@ const ItemCards = ({
   const showCartUpdateOptions = (cartUpdate) => {
     return (
       cartUpdate && (
-        <div className="input-group mt-2 mb-2" style={{ width: "30%" }}>
+        <div className="input-group mt-2 mb-2 update-cart-btn" style={{ width: "30%" }}>
           <div className="input-group-prepend">
             <span className="input-group-text">Adjust Quantity</span>
           </div>

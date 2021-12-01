@@ -60,8 +60,7 @@
 }
 
 @media (min-width:1200px){
-  .mb-2{
+  .update-cart-btn{
     width:35%;
-    margin-bottom: 0.5rem!important
   }
 }
