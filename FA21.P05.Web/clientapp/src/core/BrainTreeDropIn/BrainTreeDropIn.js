@@ -49,8 +49,7 @@ export default function BraintreeDropIn(props) {
                 const paymentMethodNonce = payload.nonce;
                 console.log("payment method nonce", payload.nonce);
 
-                // alert(`Payment completed with nonce=${paymentMethodNonce}`);
-                alert(`Payment complete`);
+                alert(`Payment completed with nonce=${paymentMethodNonce}`);
 
                 onPaymentCompleted();
               }
