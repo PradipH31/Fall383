@@ -15,6 +15,7 @@ import AddCategory from "./admin/AddCategory/AddCategory";
 import AddItem from "./admin/AddItem/AddItem";
 import Item from "./core/Item/Item";
 import Cart from "./core/cart/Cart";
+import About from "./components/about/About";
 
 function App() {
   return (
@@ -34,7 +35,6 @@ function App() {
           <Menu />
         </Route>
         {/* 
-              <Route path="/about" exact component={About} />
               <Route path="/orders" exact component={Order} />
               <Route path="/contact" exact component={Contact} />
               */}
@@ -43,7 +43,7 @@ function App() {
         <Route path="/create/menu-item" exact component={AddItem} />
         <Route path="/item/:itemId" component={Item} />
         <Route path="/cart" exact component={Cart} />
-
+        <Route path="/about" exact component={About} />
         <Route path={"*"}>
           <PageNotFound />
         </Route>
