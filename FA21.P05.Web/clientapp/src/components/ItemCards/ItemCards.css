@@ -58,3 +58,10 @@
     margin-bottom: 1rem !important;
   }
 }
+
+@media (min-width:1200px){
+  .mb-2{
+    width:35%;
+    margin-bottom: 0.5rem!important
+  }
+}
