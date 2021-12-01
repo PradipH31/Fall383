@@ -1,14 +1,11 @@
-background-color:whitesmoke .HomeImage {
-  mask-image: linear-gradient(
-    to bottom,
-    rgb(0, 0, 0),
-    rgba(209, 255, 3, 0.582)
-  );
+.HomeImage {
+  background-color: whitesmoke;
+
   z-index: -1;
   margin-bottom: -40px;
   height: 500px;
   mask-image: linear-gradient(
-    to botttom,
+    to bottom,
     rgb(216, 200, 200),
     rgba(206, 207, 199, 0.582)
   );
@@ -30,6 +27,7 @@ background-color:whitesmoke .HomeImage {
   padding: 2px;
   mask-image: linear-gradient(rgb(216, 200, 200), rgba(206, 207, 199, 0.582));
 }
+
 .bannertitle > p {
   font-weight: bolder;
   font-size: x-large;
