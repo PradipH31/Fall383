@@ -18,7 +18,7 @@
 } */
 
 .name {
-  background: #e33105;
+  background: #e33105 !important;
   color: white;
   font-weight: "bold";
   font-size: larger;
@@ -32,8 +32,7 @@
   background: rgb(231, 231, 231)
 }
 
-@media (max-width: 1280px) 
- {
+@media (max-width: 1280px) {
   .col-4 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 50%;
@@ -59,8 +58,8 @@
   }
 }
 
-@media (min-width:1200px){
-  .update-cart-btn{
-    width:35%;
+@media (min-width:1024px) {
+  .adjust-order {
+    width: 50%!important;
   }
 }

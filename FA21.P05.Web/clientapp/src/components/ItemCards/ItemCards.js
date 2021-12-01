@@ -85,7 +85,7 @@ const ItemCards = ({
           </div>
           <input
             type="number"
-            className="form-control"
+            className="form-control adjust-order"
             value={count}
             onChange={handleChange(items.id)}
           />
