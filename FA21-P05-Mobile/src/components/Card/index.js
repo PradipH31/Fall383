@@ -10,12 +10,16 @@ import {
 import { Icon } from "react-native-elements";
 import Colors from "../../screen/theme/Colors";
 
-const index = ({ itemName, images, deliveryTime, screenWidth, price }) => {
+const index = ({ itemName, images, deliveryTime, screenWidth, screenHeight, price }) => {
   return (
-    <TouchableOpacity>
-      <View style={{ ...styles.cardView, width: screenWidth }}>
+    <TouchableOpacity
+      style={{
+        marginBottom: screenHeight / 7
+      }}
+    >
+      <View style={{ ...styles.cardView, width: screenWidth, height: screenHeight }}>
         <Image
-          style={{ ...styles.image, width: screenWidth }}
+          style={{ ...styles.image, width: screenWidth, height: screenHeight }}
           source={{ uri: images }}
         />
       </View>

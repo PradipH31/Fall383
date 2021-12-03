@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Pressable,
   Image,
   Dimensions,
+  ActivityIndicator
 } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 
@@ -19,9 +20,30 @@ import { filterTestData, testSpecialsItemsData } from "../../global/testData";
 import Colors from "../theme/Colors";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
+
 const index = () => {
   const [delivery, setDelivery] = useState(true);
-  const [indexCheck, setIndexCheck] = useState("0");
+  const [indexCheck, setIndexCheck] = useState("1");
+
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const fetchItems = async () => {
+    try {
+      const response = await fetch('http://selu383-fa21-p05-g03.azurewebsites.net/api/menu-categories/' + indexCheck);
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchItems()
+  }, [indexCheck])
+
   return (
     <View style={styles.container}>
       <Header />
@@ -131,27 +153,30 @@ const index = () => {
           />
         </View>
         <View style={styles.textHeaderView}>
-          <Text style={styles.textHeader}>Specials</Text>
+          <Text style={styles.textHeader}>{filterTestData[indexCheck - 1].name}</Text>
         </View>
         <View>
-          <FlatList
-            style={{ marginTop: 10, marginBottom: 10 }}
-            horizontal={true}
-            data={testSpecialsItemsData}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View style={{ marginRight: 10 }}>
-                <Card
-                  screenWidth={SCREEN_WIDTH * 0.6}
-                  images={item.images}
-                  itemName={item.itemName}
-                  price={item.price}
-                  deliveryTime={item.deliveryTime}
-                />
-              </View>
-            )}
-          />
+          {isLoading ? <ActivityIndicator /> :
+            < FlatList
+              style={{ marginTop: 10, marginBottom: 10 }}
+              // horizontal={true}
+              data={data.menuItems}
+              // showsHorizontalScrollIndicator={false}
+              keyExtractor={({ id }, index) => id.toString()}
+              renderItem={({ item }) => (
+                <View>
+                  <Card
+                    screenWidth={SCREEN_WIDTH * 0.95}
+                    screenHeight={SCREEN_HEIGHT * 0.3}
+                    images={item.imageLink}
+                    itemName={item.name}
+                    price={item.price}
+                  // deliveryTime={item.deliveryTime}
+                  />
+                </View>
+              )}
+            />
+          }
         </View>
       </ScrollView>
     </View>
