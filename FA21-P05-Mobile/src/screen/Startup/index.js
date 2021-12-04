@@ -5,7 +5,6 @@ import Slider1 from "../../assets/images/easy2order.jpg";
 import Slider2 from "../../assets/images/fasthomedelivery.jpg";
 import Slider3 from "../../assets/images/quality.png";
 import Colors from "../../screen/theme/Colors";
-// import Fonts from "../../theme/Fonts";
 import AppStatusBar from "../../components/StatusBar";
 import { useNavigation } from "@react-navigation/native";
 
@@ -33,18 +32,8 @@ const slides = [
 function Startup() {
   const navigation = useNavigation();
   const _onDone = () => {
-    navigation.replace("Home");
+    navigation.replace("Main");
   };
-
-  // const _renderItem = ({ item }) => {
-  //   return (
-  //     <View style={styles.slide}>
-  //       <Image source={item.image} style={styles.imageStyle} />
-  //       <Text style={styles.title}>{item.title}</Text>
-  //       <Text style={styles.desc}>{item.text}</Text>
-  //     </View>
-  //   );
-  // };
 
   const _nextbutton = () => {
     return (
@@ -140,7 +129,6 @@ const styles = StyleSheet.create({
   done: {
     alignSelf: "center",
     color: Colors.white,
-    // fontFamily: "Helvetica",
     fontSize: 16,
   },
 });

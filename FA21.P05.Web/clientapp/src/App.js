@@ -1,11 +1,9 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import { getMenuItems } from "./components/actions/home";
 import Header from "./components/header/Header";
 import NavBar from "./components/navbar/NavBar";
 import PageNotFound from "./components/404/PageNotFound";
-// import Menu from "./components/menu/Menu";
 import Feature from "./components/features/Feature";
 import DownloadApp from "./components/downloadapp/Downloadapp";
 import Menu from "./components/menu/Menu";

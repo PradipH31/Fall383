@@ -1,45 +1,152 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TouchableOpacity,
   Text,
   View,
   Image,
   StyleSheet,
-  Dimensions,
+  Alert,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Colors from "../../screen/theme/Colors";
+import Button from "../Button";
+import { addItem, removeItem, updateItem } from "../../global/cart/CartActions"
 
-const index = ({ itemName, images, deliveryTime, screenWidth, price }) => {
+const AddToCart = ({ item }) => {
   return (
-    <TouchableOpacity>
-      <View style={{ ...styles.cardView, width: screenWidth }}>
-        <Image
-          style={{ ...styles.image, width: screenWidth }}
-          source={{ uri: images }}
+    <Button title='Add To Cart' onPress={() => {
+      addItem(item)
+      Alert.alert(
+        "Added to order",
+        "Added " + item.name + " to order",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+    }} />
+  )
+}
+
+const RemoveFromCart = ({ item, refresh, setRefresh }) => {
+  return (
+    <Icon
+      name='delete'
+      type='material-community'
+      iconStyle={{
+        color: 'black',
+        marginTop: 8,
+      }}
+      onPress={() => {
+        removeItem(item.id, refresh, setRefresh)
+      }} />
+  )
+}
+
+const index = ({
+  setRefresh = f => f, refresh = null, itemName, images, screenWidth, screenHeight, price, cart = false, update = false, remove = false, item
+}) => {
+  const quantity = item.count;
+  const Quantity = () => {
+    return (
+      <View style={{
+        marginTop: 10,
+        flexDirection: "row"
+      }}>
+        <Icon
+          name="minus"
+          type="material-community"
+          color={Colors.secondary}
+          size={20}
+          iconStyle={{
+            backgroundColor: Colors.primary,
+            color: Colors.white,
+            borderRadius: 5,
+            marginRight: 8
+          }}
+          onPress={() => {
+            if (item.count === 1) {
+              removeItem(item.id, refresh, setRefresh)
+            } else {
+              updateItem(item.id, item.count - 1, refresh, setRefresh)
+            }
+          }}
+        />
+        <Text style={{ fontSize: 20 }}>{quantity}</Text>
+        <Icon
+          name="plus"
+          type="material-community"
+          color={Colors.secondary}
+          size={20}
+          iconStyle={{
+            backgroundColor: Colors.primary,
+            color: Colors.white,
+            borderRadius: 5,
+            marginLeft: 8
+          }}
+          onPress={() => {
+            updateItem(item.id, item.count + 1, refresh, setRefresh)
+          }
+          }
         />
       </View>
-      <View>
+    )
+  }
+  return (
+    <View>
+      <TouchableOpacity
+        style={{
+          marginBottom: screenHeight / 7
+        }}
+      >
+        <View style={{ ...styles.cardView, width: screenWidth, height: screenHeight }}>
+          <Image
+            style={{ ...styles.image, width: screenWidth, height: screenHeight }}
+            source={{ uri: images }}
+          />
+        </View>
         <View>
-          <Text style={styles.specialItemName}>{itemName}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <View style={styles.price}>
-            <Icon
-              name="currency-usd"
-              type="material-community"
-              color={Colors.secondary}
-              size={18}
-              iconStyle={{ marginTop: 3 }}
-            />
-            <Text style={styles.priceText}>{price}</Text>
+          <View>
+            <Text style={styles.specialItemName}>{itemName}</Text>
           </View>
-          <View style={{ flex: 9, flexDirection: "row" }}>
-            <Text style={styles.deliveryTimeText}>{deliveryTime} Mins</Text>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <View style={styles.price}>
+              <Icon
+                name="currency-usd"
+                type="material-community"
+                color={Colors.secondary}
+                size={18}
+                iconStyle={{ marginTop: 10 }}
+              />
+              <Text style={styles.priceText}>{price}</Text>
+            </View>
+            <View
+              style={{
+                flex: 1.4,
+                flexDirection: "row",
+
+              }}
+            >
+              {cart === false ? <AddToCart item={item} /> : <Quantity />}
+            </View>
+            {remove ?
+              <View
+                style={{
+                  flex: 1,
+                  marginRight: 14,
+                }}
+              >
+                <RemoveFromCart item={item} refresh={refresh} setRefresh={setRefresh} style={{ flex: 1 }} />
+              </View> : <Text></Text>
+            }
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -67,14 +174,13 @@ const styles = StyleSheet.create({
   price: {
     flex: 4,
     flexDirection: "row",
-    borderRightColor: Colors.secondary,
     paddingHorizontal: 5,
-    borderRightWidth: 1,
   },
   priceText: {
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: "bold",
     paddingTop: 5,
+    marginTop: 5,
     color: Colors.primary,
   },
   deliveryTimeText: {

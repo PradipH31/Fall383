@@ -130,7 +130,7 @@ namespace FA21.P05.Web.Controllers
         }
 
         [HttpDelete]
-        // [Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Roles = RoleNames.Admin)]
         [Route("{id}")]
         public ActionResult Delete(int id)
         {
