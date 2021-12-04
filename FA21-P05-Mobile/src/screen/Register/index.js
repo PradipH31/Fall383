@@ -69,7 +69,6 @@ const Register = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
       keyboardVerticalOffset={0}
-      // behavior="position"
     >
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <AppStatusBar />

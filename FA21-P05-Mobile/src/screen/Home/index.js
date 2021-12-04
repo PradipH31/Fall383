@@ -45,7 +45,6 @@ const index = () => {
 
   return (
     <View style={styles.container}>
-      {/* <Header /> */}
       <ScrollView
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
@@ -66,9 +65,9 @@ const index = () => {
                     : Colors.whiteShade,
                 }}
               >
-                <Text style={styles.textDelivery}> 
-                Delivery
-                (Coming Soon!)
+                <Text style={styles.textDelivery}>
+                  Delivery
+                  (Coming Soon!)
                 </Text>
               </View>
             </TouchableOpacity>

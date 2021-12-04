@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/core";
 
 const index = () => {
   const navigation = useNavigation();
-  const BadgeIcon = withBadge(0)(Icon);
+  const BadgeIcon = (Icon);
   return (
     <View style={styles.header}>
       <AppStatusBar backgroundColor={Colors.primary} barStyle="dark-content" />

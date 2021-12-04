@@ -9,7 +9,6 @@ import Card from "../card/Card";
 
 
 const PreviousBtn = (props) => {
-    // console.log(props);
     const { className, onClick } = props;
     return (
         <div className={className} onClick={onClick}>

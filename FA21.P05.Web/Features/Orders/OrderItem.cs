@@ -7,7 +7,6 @@ namespace FA21.P05.Web.Features.Orders
     public class OrderItem
     {
         public int Id { get; set; }
-        //public int LineItemQuantity { get; set; }
         public decimal AddonItemTotal { get; set; }
         public decimal LineItemTotal { get; set; }
         public int MenuItemQuantity { get; set; }

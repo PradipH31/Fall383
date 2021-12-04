@@ -20,13 +20,7 @@ const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const signIn = () => {
-    // if (username === undefined || username.length < 10) {
-    //   Alert.alert("Please Enter a Username");
-    // } else if (password === undefined || password.length < 6) {
-    //   Alert.alert("Please Enter a Valid Password");
-    // } else {
     navigation.navigate("Home");
-    //}
   };
 
   return (
@@ -34,7 +28,6 @@ const Login = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
       keyboardVerticalOffset={0}
-      // behavior="position"
     >
       <ScrollView bounces={false}>
         <AppStatusBar />

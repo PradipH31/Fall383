@@ -20,16 +20,6 @@ const Splash = () => {
         source={require("../../../assets/splash_ios.png")}
         style={styles.logo}
       />
-      {/* <Text
-        style={{
-          //   fontFamily: "Poppins_500Medium",
-          fontSize: 25,
-          fontWeight: "900",
-          color: "#f05946",
-        }}
-      >
-        FoodToGo
-      </Text> */}
     </View>
   );
 };

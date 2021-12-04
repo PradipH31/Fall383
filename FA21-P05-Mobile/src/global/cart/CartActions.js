@@ -18,13 +18,6 @@ export const addItem = async (item) => {
       cart = JSON.stringify(cart);
       try {
         await AsyncStorage.setItem('@cart', cart);
-        // try {
-        //   const v = await AsyncStorage.getItem('@cart')
-        //   console.log(v)
-        // }
-        // catch (e) {
-        //   console.log(e)
-        // }
       }
       catch (e) {
         alert("Could not add to your cart")
@@ -49,27 +42,39 @@ export const getCartItems = async () => {
   if (typeof window !== "undefined") {
     const val = await AsyncStorage.getItem('@cart')
     if (val !== null) {
-      console.log(val)
       return JSON.parse(val);
     }
   }
   return [];
 };
 
-export const updateItem = (itemId, count) => {
-  let cart = [];
-  if (typeof window !== "undefined") {
-    if (AsyncStorage.getItem('@cart')) {
-      cart = JSON.parse(AsyncStorage.getItem('@cart'));
-    }
-    cart.map((item, i) => {
-      if (item.id === itemId) {
-        return (cart[i].count = count);
-      } else {
-        return [];
+export const updateItem = async (itemId, count, refresh, setRefresh) => {
+  try {
+    let cart = [];
+    if (typeof window !== "undefined") {
+      const val = await AsyncStorage.getItem('@cart')
+      if (val != null) {
+        cart = JSON.parse(val);
       }
-    });
-    AsyncStorage.setItem('@cart', JSON.stringify(cart));
+      cart.map((item, i) => {
+        if (item.id === itemId) {
+          return (cart[i].count = count);
+        } else {
+          return [];
+        }
+      });
+      cart = JSON.stringify(cart);
+      try {
+        await AsyncStorage.setItem('@cart', cart).then(
+          setRefresh(!refresh)
+        );
+      }
+      catch (e) {
+        alert("Could not update your cart")
+      }
+    }
+  } catch (e) {
+    alert('Cart might be empty.')
   }
 };
 
@@ -112,7 +117,6 @@ export const clearCart = () => {
 }
 
 export const createOrder = (createOrderData) => {
-  console.log(createOrderData)
   return fetch(`https://selu383-fa21-p05-g03.azurewebsites.net/api/orders`, {
     method: "POST",
     headers: {
@@ -123,6 +127,7 @@ export const createOrder = (createOrderData) => {
   })
     .then((res) => {
       clearCart();
+      console.log(res)
       return res.json();
     })
     .catch((err) => console.log(err));

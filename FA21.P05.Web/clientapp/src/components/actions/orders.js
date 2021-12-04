@@ -20,7 +20,6 @@ export const createOrder = (
 
 export const listOrder = (
   orderId
-  //token
 ) => {
   return fetch(`api/orders/${orderId}`, {
     method: "GET",

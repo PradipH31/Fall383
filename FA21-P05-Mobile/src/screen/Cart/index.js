@@ -68,16 +68,16 @@ function index() {
         <View style={{ flex: 1 }}>
             <Text style={{
                 fontSize: 25,
-                alignSelf: 'center'
-            }}>Total: {total !== null ? total : 0}</Text>
+                alignSelf: 'center',
+                fontWeight:'bold',
+            }}>Total: ${total !== null ? total : 0}</Text>
             <ScrollView>
                 <View>
                     {isLoading ? <ActivityIndicator /> :
                         < FlatList
                             style={{ marginTop: 10, marginBottom: 10 }}
                             data={data}
-                            keyExtractor={({ id }, index) => id}
-                            // keyExtractor={({ id }, index) => id.toString()}
+                            keyExtractor={({ id }, index) => id.toString()}
                             renderItem={({ item }) => (
                                 <View>
                                     <Card
@@ -86,8 +86,9 @@ function index() {
                                         images={item.imageLink}
                                         itemName={item.name}
                                         price={item.price}
-                                        cart={false}
+                                        cart={true}
                                         remove={true}
+                                        update={true}
                                         item={item}
                                         refresh={refresh}
                                         setRefresh={setRefresh}

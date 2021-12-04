@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -10,7 +10,7 @@ import {
 import { Icon } from "react-native-elements";
 import Colors from "../../screen/theme/Colors";
 import Button from "../Button";
-import { addItem, removeItem } from "../../global/cart/CartActions"
+import { addItem, removeItem, updateItem } from "../../global/cart/CartActions"
 
 const AddToCart = ({ item }) => {
   return (
@@ -34,23 +34,68 @@ const AddToCart = ({ item }) => {
 
 const RemoveFromCart = ({ item, refresh, setRefresh }) => {
   return (
-    <Button title='X' onPress={() => {
-      removeItem(item.id, refresh, setRefresh)
-    }} />
-  )
-}
-
-const Quantity = () => {
-  return (
-    <View style={{ marginTop: 10 }}>
-      <Text>1</Text>
-    </View>
+    <Icon
+      name='delete'
+      type='material-community'
+      iconStyle={{
+        color: 'black',
+        marginTop: 8,
+      }}
+      onPress={() => {
+        removeItem(item.id, refresh, setRefresh)
+      }} />
   )
 }
 
 const index = ({
-  setRefresh = f => f, refresh = null, itemName, images, screenWidth, screenHeight, price, cart = true, update = false, remove = false, item
+  setRefresh = f => f, refresh = null, itemName, images, screenWidth, screenHeight, price, cart = false, update = false, remove = false, item
 }) => {
+  const quantity = item.count;
+  const Quantity = () => {
+    return (
+      <View style={{
+        marginTop: 10,
+        flexDirection: "row"
+      }}>
+        <Icon
+          name="minus"
+          type="material-community"
+          color={Colors.secondary}
+          size={20}
+          iconStyle={{
+            backgroundColor: Colors.primary,
+            color: Colors.white,
+            borderRadius: 5,
+            marginRight: 8
+          }}
+          onPress={() => {
+            if (item.count === 1) {
+              removeItem(item.id, refresh, setRefresh)
+            } else {
+              updateItem(item.id, item.count - 1, refresh, setRefresh)
+            }
+          }}
+        />
+        <Text style={{ fontSize: 20 }}>{quantity}</Text>
+        <Icon
+          name="plus"
+          type="material-community"
+          color={Colors.secondary}
+          size={20}
+          iconStyle={{
+            backgroundColor: Colors.primary,
+            color: Colors.white,
+            borderRadius: 5,
+            marginLeft: 8
+          }}
+          onPress={() => {
+            updateItem(item.id, item.count + 1, refresh, setRefresh)
+          }
+          }
+        />
+      </View>
+    )
+  }
   return (
     <View>
       <TouchableOpacity
@@ -86,7 +131,7 @@ const index = ({
 
               }}
             >
-              {cart ? <AddToCart item={item} /> : <Quantity />}
+              {cart === false ? <AddToCart item={item} /> : <Quantity />}
             </View>
             {remove ?
               <View
@@ -129,9 +174,7 @@ const styles = StyleSheet.create({
   price: {
     flex: 4,
     flexDirection: "row",
-    // borderRightColor: Colors.secondary,
     paddingHorizontal: 5,
-    // borderRightWidth: 1,
   },
   priceText: {
     fontSize: 16,
