@@ -15,15 +15,14 @@ import { Icon } from "react-native-elements/dist/icons/Icon";
 
 import Card from "../../components/Card";
 
-import Header from "../../components/Header";
-import { filterTestData, testSpecialsItemsData } from "../../global/testData";
+import { filterTestData } from "../../global/testData";
 import Colors from "../theme/Colors";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 const index = () => {
-  const [delivery, setDelivery] = useState(true);
+  const [delivery, setDelivery] = useState(false);
   const [indexCheck, setIndexCheck] = useState("1");
 
   const [isLoading, setLoading] = useState(true);
@@ -46,7 +45,7 @@ const index = () => {
 
   return (
     <View style={styles.container}>
-      <Header />
+      {/* <Header /> */}
       <ScrollView
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
@@ -57,6 +56,7 @@ const index = () => {
               onPress={() => {
                 setDelivery(true);
               }}
+              disabled={true}
             >
               <View
                 style={{
@@ -66,7 +66,10 @@ const index = () => {
                     : Colors.whiteShade,
                 }}
               >
-                <Text style={styles.textDelivery}> Delivery</Text>
+                <Text style={styles.textDelivery}> 
+                Delivery
+                (Coming Soon!)
+                </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -159,9 +162,7 @@ const index = () => {
           {isLoading ? <ActivityIndicator /> :
             < FlatList
               style={{ marginTop: 10, marginBottom: 10 }}
-              // horizontal={true}
               data={data.menuItems}
-              // showsHorizontalScrollIndicator={false}
               keyExtractor={({ id }, index) => id.toString()}
               renderItem={({ item }) => (
                 <View>
@@ -171,7 +172,7 @@ const index = () => {
                     images={item.imageLink}
                     itemName={item.name}
                     price={item.price}
-                  // deliveryTime={item.deliveryTime}
+                    item={item}
                   />
                 </View>
               )}

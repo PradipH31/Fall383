@@ -33,7 +33,7 @@ const slides = [
 function Startup() {
   const navigation = useNavigation();
   const _onDone = () => {
-    navigation.replace("Home");
+    navigation.replace("Main");
   };
 
   // const _renderItem = ({ item }) => {

@@ -3,8 +3,10 @@ import { View, Text, StyleSheet } from "react-native";
 import { Icon, withBadge } from "react-native-elements";
 import Colors from "../../screen/theme/Colors";
 import AppStatusBar from "../StatusBar";
+import { useNavigation } from "@react-navigation/core";
 
 const index = () => {
+  const navigation = useNavigation();
   const BadgeIcon = withBadge(0)(Icon);
   return (
     <View style={styles.header}>
@@ -13,9 +15,13 @@ const index = () => {
       <View style={styles.headerIcon}>
         <Icon
           type="material-community"
-          name="menu"
+          name="silverware-fork-knife"
           color={Colors.white}
           size={27}
+          onPress={(e) => {
+            e.preventDefault();
+            navigation.navigate("Home");
+          }}
         />
       </View>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
@@ -33,6 +39,10 @@ const index = () => {
           name="cart"
           color={Colors.white}
           size={27}
+          onPress={(e) => {
+            e.preventDefault();
+            navigation.navigate("Cart");
+          }}
         />
       </View>
     </View>

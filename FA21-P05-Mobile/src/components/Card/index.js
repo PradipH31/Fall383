@@ -5,45 +5,71 @@ import {
   View,
   Image,
   StyleSheet,
-  Dimensions,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Colors from "../../screen/theme/Colors";
+import Button from "../Button";
+import { addItem } from "../../global/cart/CartActions"
 
-const index = ({ itemName, images, deliveryTime, screenWidth, screenHeight, price }) => {
+const AddToCart = ({ item }) => {
   return (
-    <TouchableOpacity
-      style={{
-        marginBottom: screenHeight / 7
-      }}
-    >
-      <View style={{ ...styles.cardView, width: screenWidth, height: screenHeight }}>
-        <Image
-          style={{ ...styles.image, width: screenWidth, height: screenHeight }}
-          source={{ uri: images }}
-        />
-      </View>
-      <View>
+    <Button title='Add To Cart' onPress={() => {
+      addItem(item)
+    }} />
+  )
+}
+
+const Quantity = () => {
+  return (
+    <View>
+      <Text>Quantity:1</Text>
+    </View>
+  )
+}
+
+const index = ({ itemName, images, screenWidth, screenHeight, price, cart = true, update = false, item }) => {
+  return (
+    <View>
+      <TouchableOpacity
+        style={{
+          marginBottom: screenHeight / 7
+        }}
+      >
+        <View style={{ ...styles.cardView, width: screenWidth, height: screenHeight }}>
+          <Image
+            style={{ ...styles.image, width: screenWidth, height: screenHeight }}
+            source={{ uri: images }}
+          />
+        </View>
         <View>
-          <Text style={styles.specialItemName}>{itemName}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <View style={styles.price}>
-            <Icon
-              name="currency-usd"
-              type="material-community"
-              color={Colors.secondary}
-              size={18}
-              iconStyle={{ marginTop: 3 }}
-            />
-            <Text style={styles.priceText}>{price}</Text>
+          <View>
+            <Text style={styles.specialItemName}>{itemName}</Text>
           </View>
-          <View style={{ flex: 9, flexDirection: "row" }}>
-            <Text style={styles.deliveryTimeText}>{deliveryTime} Mins</Text>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <View style={styles.price}>
+              <Icon
+                name="currency-usd"
+                type="material-community"
+                color={Colors.secondary}
+                size={18}
+                iconStyle={{ marginTop: 8 }}
+              />
+              <Text style={styles.priceText}>{price}</Text>
+            </View>
+            <View
+              style={{
+                flex: 1.4,
+                flexDirection: "row",
+                // margin: 0
+              }}
+            >
+              {/* <Text style={styles.deliveryTimeText}>5 Mins</Text> */}
+              {cart ? <AddToCart item={item} /> : <Quantity />}
+            </View>
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -71,14 +97,15 @@ const styles = StyleSheet.create({
   price: {
     flex: 4,
     flexDirection: "row",
-    borderRightColor: Colors.secondary,
+    // borderRightColor: Colors.secondary,
     paddingHorizontal: 5,
-    borderRightWidth: 1,
+    // borderRightWidth: 1,
   },
   priceText: {
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: "bold",
     paddingTop: 5,
+    marginTop: 5,
     color: Colors.primary,
   },
   deliveryTimeText: {

@@ -13,13 +13,10 @@ const Button = ({ title, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.primary,
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: 10,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
     borderRadius: 10,
   },
   textTitle: { color: Colors.white, fontSize: 16, fontWeight: "bold" },
