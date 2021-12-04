@@ -15,23 +15,21 @@ export const addItem = async (item) => {
       cart = Array.from(new Set(cart.map((p) => p.id))).map((id) => {
         return cart.find((p) => p.id === id);
       });
-      console.log(cart)
       cart = JSON.stringify(cart);
       try {
-        await AsyncStorage.setItem('@cart', cart).then(console.log('aa'));
-        try {
-          const v = await AsyncStorage.getItem('@cart')
-          console.log(v)
-        }
-        catch (e) {
-          console.log(e)
-        }
+        await AsyncStorage.setItem('@cart', cart);
+        // try {
+        //   const v = await AsyncStorage.getItem('@cart')
+        //   console.log(v)
+        // }
+        // catch (e) {
+        //   console.log(e)
+        // }
       }
       catch (e) {
         alert("Could not add to your cart")
       }
     } catch (e) {
-      console.log(e)
       alert('Failed to get your cart')
     }
   }
@@ -99,3 +97,20 @@ export const clearCart = () => {
     AsyncStorage.setItem('@cart', JSON.stringify(cart));
   }
 }
+
+export const createOrder = (createOrderData) => {
+  console.log(createOrderData)
+  return fetch(`https://selu383-fa21-p05-g03.azurewebsites.net/api/orders`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ "orderItems": createOrderData }),
+  })
+    .then((res) => {
+      clearCart();
+      return res.json();
+    })
+    .catch((err) => console.log(err));
+};

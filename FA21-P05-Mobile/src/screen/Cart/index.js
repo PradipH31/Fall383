@@ -1,13 +1,39 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, ActivityIndicator, Dimensions } from 'react-native';
+import { FlatList, ActivityIndicator, Dimensions, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { View, Text } from 'react-native'
-import { getCartItems, } from '../../global/cart/CartActions'
+import { createOrder, getCartItems, } from '../../global/cart/CartActions'
+import Colors from "../../screen/theme/Colors";
 import Card from "../../components/Card";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 function index() {
+
+    const Checkout = () => {
+        return (
+            <TouchableOpacity style={styles.button}
+                onPress={() => {
+                    createOrder(orderItems)
+                    try {
+                        createOrder(orderItems).then(res => {
+                            console.log(res)
+                            alert('Your order has been placed')
+                            setEverything()
+                        }).then(resp => {
+                            console.log(resp)
+                        })
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }}
+            >
+                <Text style={styles.textTitle}>Checkout</Text>
+            </TouchableOpacity>
+        )
+    }
+
+    const [orderItems, setOrderItems] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(null);
@@ -18,14 +44,22 @@ function index() {
         }, 0);
     };
 
-    useEffect(() => {
+    const setEverything = () => {
         getCartItems().then(
             values => {
                 setData(values)
                 setTotal(getTotal(values))
+                setOrderItems(values.map(orderItem => ({
+                    "menuItemId": orderItem.id,
+                    "menuItemQuantity": orderItem.count
+                })))
                 setLoading(false)
             }
         )
+    }
+
+    useEffect(() => {
+        setEverything()
     }, [])
 
     return (
@@ -34,30 +68,47 @@ function index() {
                 fontSize: 25,
                 alignSelf: 'center'
             }}>Total: {total !== null ? total : 0}</Text>
-            <View>
-                {isLoading ? <ActivityIndicator /> :
-                    < FlatList
-                        style={{ marginTop: 10, marginBottom: 10 }}
-                        data={data}
-                        keyExtractor={({ id }, index) => id}
-                        // keyExtractor={({ id }, index) => id.toString()}
-                        renderItem={({ item }) => (
-                            <View>
-                                <Card
-                                    screenWidth={SCREEN_WIDTH * 0.95}
-                                    screenHeight={SCREEN_HEIGHT * 0.3}
-                                    images={item.imageLink}
-                                    itemName={item.name}
-                                    price={item.price}
-                                    cart={false}
-                                />
-                            </View>
-                        )}
-                    />
-                }
-            </View>
+            <ScrollView>
+                <View>
+                    {isLoading ? <ActivityIndicator /> :
+                        < FlatList
+                            style={{ marginTop: 10, marginBottom: 10 }}
+                            data={data}
+                            keyExtractor={({ id }, index) => id}
+                            // keyExtractor={({ id }, index) => id.toString()}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <Card
+                                        screenWidth={SCREEN_WIDTH * 0.95}
+                                        screenHeight={SCREEN_HEIGHT * 0.3}
+                                        images={item.imageLink}
+                                        itemName={item.name}
+                                        price={item.price}
+                                        cart={false}
+                                    />
+                                </View>
+                            )}
+                        />
+                    }
+                </View>
+                <Checkout style={{ marginLeft: 50 }} />
+            </ScrollView>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    button: {
+        backgroundColor: Colors.primary,
+        padding: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        marginBottom: 10,
+        marginHorizontal: 15
+    },
+    textTitle: { color: Colors.white, fontSize: 16, fontWeight: "bold" },
+});
 
 export default index
