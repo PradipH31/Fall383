@@ -5,29 +5,52 @@ import {
   View,
   Image,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Colors from "../../screen/theme/Colors";
 import Button from "../Button";
-import { addItem } from "../../global/cart/CartActions"
+import { addItem, removeItem } from "../../global/cart/CartActions"
 
 const AddToCart = ({ item }) => {
   return (
     <Button title='Add To Cart' onPress={() => {
       addItem(item)
+      Alert.alert(
+        "Added to order",
+        "Added " + item.name + " to order",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+    }} />
+  )
+}
+
+const RemoveFromCart = ({ item, refresh, setRefresh }) => {
+  return (
+    <Button title='X' onPress={() => {
+      removeItem(item.id, refresh, setRefresh)
     }} />
   )
 }
 
 const Quantity = () => {
   return (
-    <View>
-      <Text>Quantity:1</Text>
+    <View style={{ marginTop: 10 }}>
+      <Text>1</Text>
     </View>
   )
 }
 
-const index = ({ itemName, images, screenWidth, screenHeight, price, cart = true, update = false, item }) => {
+const index = ({
+  setRefresh = f => f, refresh = null, itemName, images, screenWidth, screenHeight, price, cart = true, update = false, remove = false, item
+}) => {
   return (
     <View>
       <TouchableOpacity
@@ -52,7 +75,7 @@ const index = ({ itemName, images, screenWidth, screenHeight, price, cart = true
                 type="material-community"
                 color={Colors.secondary}
                 size={18}
-                iconStyle={{ marginTop: 8 }}
+                iconStyle={{ marginTop: 10 }}
               />
               <Text style={styles.priceText}>{price}</Text>
             </View>
@@ -60,12 +83,21 @@ const index = ({ itemName, images, screenWidth, screenHeight, price, cart = true
               style={{
                 flex: 1.4,
                 flexDirection: "row",
-                // margin: 0
+
               }}
             >
-              {/* <Text style={styles.deliveryTimeText}>5 Mins</Text> */}
               {cart ? <AddToCart item={item} /> : <Quantity />}
             </View>
+            {remove ?
+              <View
+                style={{
+                  flex: 1,
+                  marginRight: 14,
+                }}
+              >
+                <RemoveFromCart item={item} refresh={refresh} setRefresh={setRefresh} style={{ flex: 1 }} />
+              </View> : <Text></Text>
+            }
           </View>
         </View>
       </TouchableOpacity>

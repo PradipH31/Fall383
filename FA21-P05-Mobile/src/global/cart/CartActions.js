@@ -73,22 +73,35 @@ export const updateItem = (itemId, count) => {
   }
 };
 
-export const removeItem = (itemId) => {
-  let cart = [];
-  if (typeof window !== "undefined") {
-    if (AsyncStorage.getItem('@cart')) {
-      cart = JSON.parse(AsyncStorage.getItem('@cart'));
-    }
-    cart.map((item, i) => {
-      if (item.id === itemId) {
-        return cart.splice(i, 1);
-      } else {
-        return null;
+export const removeItem = async (itemId, refresh, setRefresh) => {
+  try {
+    let cart = [];
+    if (typeof window !== "undefined") {
+      const val = await AsyncStorage.getItem('@cart')
+      if (val != null) {
+        cart = JSON.parse(val);
       }
-    });
-    AsyncStorage.setItem('@cart', JSON.stringify(cart));
+      cart.map((item, i) => {
+        if (item.id === itemId) {
+          return cart.splice(i, 1);
+        } else {
+          return null;
+        }
+      });
+      cart = JSON.stringify(cart);
+      try {
+        await AsyncStorage.setItem('@cart', cart).then(
+          setRefresh(!refresh)
+        );
+      }
+      catch (e) {
+        alert("Could not add to your cart")
+      }
+    }
+    return cart;
+  } catch (e) {
+    alert('Cart might be empty.')
   }
-  return cart;
 };
 
 export const clearCart = () => {

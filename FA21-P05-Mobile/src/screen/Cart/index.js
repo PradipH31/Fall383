@@ -58,9 +58,11 @@ function index() {
         )
     }
 
+    const [refresh, setRefresh] = useState(false);
+
     useEffect(() => {
         setEverything()
-    }, [])
+    }, [refresh])
 
     return (
         <View style={{ flex: 1 }}>
@@ -85,13 +87,17 @@ function index() {
                                         itemName={item.name}
                                         price={item.price}
                                         cart={false}
+                                        remove={true}
+                                        item={item}
+                                        refresh={refresh}
+                                        setRefresh={setRefresh}
                                     />
                                 </View>
                             )}
                         />
                     }
                 </View>
-                <Checkout style={{ marginLeft: 50 }} />
+                {total < 1 ? <Text>Your cart is empty</Text> : <Checkout style={{ marginLeft: 50 }} />}
             </ScrollView>
         </View>
     )
